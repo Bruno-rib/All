@@ -1,1 +1,34 @@
-hamblastering
+git checkout -- "name file"       	reverse
+git status 							check status working / unstage
+git add .                           all added from working to unstage
+git add "name file"					add one file working to unstage
+git commit -ma "message"			add files from working to repository (all directly, only use for changes)
+git commit -m "message"				add files from unstage to repository
+git config --global user.name "name"	add name
+git config --global user.email "email"	add email
+git init							starts to control a file or folder
+git reset HEAD "file"				remove file from stage area
+
+
+
+
+
+pwd									check directory
+cd ../..							previous x2
+cd "directory"						move forward into
+ls									files in directory
+ls -la								all files (hidden)
+mkdir								make directory
+rmdir								delete folder
+rm "file"							delete file
+touch "file"						create a new file
+echo "message to add" >> "file"		append or create text to file
+
+
+
+
+
+
+
+
+.
