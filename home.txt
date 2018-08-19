@@ -7,8 +7,14 @@ git commit -m "message"				add files from unstage to repository
 git config --global user.name "name"	add name
 git config --global user.email "email"	add email
 git init							starts to control a file or folder
+git add *.java						keep track of all java files on current directory
 git reset HEAD "file"				remove file from stage area
 git log 							all commits
+git checkout "commit id" -- "file" 	reverse to a previous commit
+git remote add "nickname" "link"	add a nickname to github url (shift + insert = paste)
+git push -u "link" master			add commits online
+git help							help
+.gitignore							create a file named as (github.com/github/gitignore)
 
 
 
