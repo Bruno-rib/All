@@ -1,0 +1,34 @@
+extends layout
+block content
+  div(ng-app="" id="new_div")
+      section(id="main_section")
+        article
+          header
+            div(id="name")
+              hgroup
+                h1 Please enter your name :
+                input(type="text" ng-model="name")
+                h2 Hello {{name}}
+
+    div(ng-app="" id="new_div")
+      section(id="main_section")
+        article
+          header
+            div(id="name")
+              hgroup
+                h1 How big you wanna your balls to be?
+                input(type="number" step="10" min="10" max="400" ng-model="size")
+                h3(ng-style="{'font-size': size+'px', 'position': 'absolute', 'z-index': '10', 'left': '20%'}") Balls
+
+    div(id="new_div")
+      section(id="main_section")
+        article
+          header
+            div(id="name")
+              hgroup
+                h1 Guess a number 1-1000
+                div(id="name" ng-app ng-controller="MyCtrl")
+                  input(type="text" placeholder="0" ng-model="deposit")
+                  button(ng-click="showValue();") Guess
+                
+

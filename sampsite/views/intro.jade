@@ -1,0 +1,29 @@
+DOCTYPE
+  html
+    head
+      style(type="text/css").
+        body {
+          background: black;
+        }
+        a {
+          position: absolute;
+          top: 50%;
+          left: 10%;
+          color: white;
+          font-size: 15px;
+        }
+
+    body
+      div(id="big_wrapper")
+    nav(id="top_menu")
+      section(id="links")
+        div(id="Games")
+          a(href="/") Start here 
+      div(ng-app="app2")
+        
+        h1(id="top_header" ng-controller="ctrl1" ng-style="{'position': 'absolute', 'top': countM+'%', 'left': countM+'%', 'color' : 'rgb(' + count + ')', 'font-size': '65px'}") The Bruno
+
+    script(src='/lib/angular/angular.js')
+    script(src='/application.js')
+
+        
