@@ -1,0 +1,483 @@
+//global
+{
+rectMode (CENTER);
+var m1 = 3;
+var m2 = 6;
+var c = 0;
+var s = 5;
+var playerMoney = 1000;
+var NUM_COLS = 5;
+var NUM_ROWS = 2;
+var t = 0;
+var x = 0;
+var angle = 0;
+var playerLives = 5;
+var buyTower1 = false;
+var buyTower2 = false;
+}
+
+//Mover
+{
+var Mover = function(mass, x, y, v) {
+    this.position = new PVector(x, y);
+    this.velocity = new PVector(v, 0);
+    this.mass = mass;
+};
+  
+Mover.prototype.update = function() {
+    this.position.add(this.velocity);
+    this.velocity.limit = 4;
+};
+
+Mover.prototype.display = function(sizeX, sizeY, c) {
+    noFill();
+    stroke(c, 255-c, 255-c);
+    strokeWeight(5);
+    ellipse(this.position.x, this.position.y, sizeX, sizeY);
+};
+
+Mover.prototype.checkEdges = function(v) {
+    if (this.position.x < 0) {
+        playerLives --;
+        this.position.x = random (width, width + 20);
+        this.mass = 1;
+    }
+};
+
+var movers = [];
+for (var i = 0; i < 2; i++) {
+    movers[i] = new Mover(m2, width, 200, -1/2);
+}
+
+for (var i = 2; i < 5; i++) {
+    movers[i] = new Mover(m1, width, 200, -1);
+}
+
+var attackers = function() {
+    for (var i = 0; i < (5); i++) {
+        movers[i].update();
+        movers[i].checkEdges(4);
+        movers[i].display(20, 20, 50);
+    }
+};
+
+//Enemies
+/*{
+var small = {
+    life: 40,
+    speed: 1.2,
+    damage: 1,
+    size: 1,
+    reward: 30
+};
+var big = {
+    life: 100,
+    speed: 0.9,
+    damage: 2.4,
+    size: 2,
+    reward: 50,
+};
+var fast = {
+    life: 20,
+    speed: 3,
+    damage: 0.8,
+    size: 0.8,
+    reward: 30,
+};
+
+var zombie = function(type, x, y) {
+    this.x = x;
+    this.y = y;
+    this.type = type;
+    this.life = this.type.life*(diffic+0.3);
+    this.speed = this.type.speed * (1.55 + currentwave / 60);
+    this.size = this.type.size;
+    this.reward = this.type.reward;
+    this.image.rect (12,20,3,4);
+this.image.fill(55, 110, 61);
+
+zombie.prototype.draw = function() {
+    if (this.life > 0) {
+        pushMatrix();
+        translate(this.x, this.y);
+        scale(this.size);
+        if (this.x  < 440 + this.size * 10) {
+            image(this.image, -14, -25);}
+            }
+        popMatrix();
+
+        if (millis() % 1000 < 10) {
+            this.speed = this.type.speed;
+        }
+
+        
+                this.x -=gamespeed*this.speed/3;
+
+    }
+    if (this.life < 1 && this.life > -200) {
+        money += this.reward;
+        this.life = -300;
+    }
+};
+
+}*/
+
+
+}
+
+//defense
+{
+var towersGeneral = function() {
+    
+//buy tower
+rectMode (CORNER);
+var buyTowers = function() {
+var Tile = function(x, y, face) {
+    this.x = x;
+    this.y = y;
+    this.width = 60;
+};
+
+Tile.prototype.isUnderMouse = function(x, y) {
+    return x >= this.x && x <= this.x + this.width  &&
+        y >= this.y && y <= this.y + this.width;
+};
+
+Tile.prototype.drawFaceDown = function() {
+    fill(214, 247, 202);
+    strokeWeight(2);
+    stroke(3, 3, 3);
+    rect(this.x, this.y, this.width, this.width, 10);
+};
+
+var tiles = [];
+for (var i = 0; i < NUM_COLS; i++) {
+    for (var j = 0; j < NUM_ROWS; j++) {
+        tiles.push(new Tile(i * 76 + 15, j * 66 + 270));
+    }
+}
+
+var tilesShoot = [];
+for (var i = 0; i < NUM_COLS; i++) {
+        tilesShoot.push(new Tile(i * 66 + 4, 180));
+}
+
+for (var i = 0; i < tiles.length; i++) {
+    tiles[i].drawFaceDown();
+}
+
+for (var i = 0; i < tilesShoot.length; i++) {
+    tilesShoot[i].drawFaceDown();
+}
+
+
+//towers declaration
+var tower1 = function(x, y, angle) {
+    pushMatrix();
+    noStroke();
+    translate(x, y);
+    rotate (angle);
+    fill(121, 66, 158);
+    rect (0, 0, 10, 10, -20);
+    stroke(0, 0, 0);
+    popMatrix();
+
+};
+
+var tower2 = function(x, y) {
+    pushMatrix();
+    translate(x, y);
+    image (getImage("avatars/piceratops-ultimate"), -20, -20, 60, 40);
+    //fill(121, 66, 158);
+    //rect (0, 0, 30, 10);
+    //fill(255, 0, 0);
+    //ellipse(0, 0, 10, 10);
+    popMatrix();
+
+};
+
+var tower3 = function (centerX, centerY, bodyLength, bodyHeight, x, fin){
+    noStroke();
+    fill(162 + x, 0 + x, 255- x);
+    // body
+    ellipse(centerX, centerY, bodyLength, bodyHeight);
+    // tail
+    var tailWidth = bodyLength/4;
+    var tailHeight = bodyHeight/2;
+    stroke(5, 5, 5);
+    fill (162 - x, 255 - x/2, 255- x);
+    triangle(centerX-bodyLength/2, centerY,
+         centerX-bodyLength/2-tailWidth, centerY-tailHeight,
+         centerX-bodyLength/2-tailWidth, centerY+tailHeight);
+    //FIN
+    noStroke();
+    fill(162 - x, 255 - x/2, 255- x);
+    bezier (centerX , centerY + 5,
+    centerX - bodyLength/2,  centerY + fin,
+    centerX - bodyLength/2,  centerY - 50,
+    centerX , centerY + 10);
+    // eye
+    fill(33, 33, 33);
+    ellipse(centerX+bodyLength/4, centerY, bodyHeight/5, bodyHeight/5);
+    fill(255,255,255);
+    ellipse(centerX+bodyLength/4+2, centerY, bodyHeight/8, bodyHeight/16);
+};
+
+var tower4 = function(moleX,moleY) {
+    
+    noStroke();
+    fill(125, 93, 43);
+    ellipse(moleX, moleY, 60, 60); // face
+    fill(255, 237, 209);
+    ellipse(moleX, moleY+10, 33, 28); 
+    fill(0, 0, 0);
+    ellipse(moleX-10, moleY-15, 10, 10); // eyes
+    ellipse(moleX+10, moleY-15, 10, 10);
+    ellipse(moleX, moleY-5, 10, 10); // nose
+    ellipse(moleX, moleY+10, 20, 5); // mouth
+};
+
+var tower5 = function(x, y) {
+
+pushMatrix();
+fill(168, 161, 96);
+translate (x, y);
+scale(0.05);
+noStroke();
+beginShape(); 
+vertex(0, 0);
+bezierVertex(-9.7, -10.4, -14.3, -33, -10.4, -51);
+bezierVertex(-6.5, -68.9, -5.1, -71.2, 35.6, -129.1);
+bezierVertex(95.9, -214.6, 117.3, -260.6, 159.2, -393.7);
+bezierVertex(161, -399.6, 152.1, -406.9, 143.1, -406.9);
+bezierVertex(131.5, -406.9, 122.6, -399.6, 117, -385.4);
+bezierVertex(110.7, -369.5, 106.6, -366.2, 90.4, -364.4);
+bezierVertex(75, -362.7, 56.6, -368.9, 49.2, -378.3);
+bezierVertex(44, -385, 44.1, -386.7, 49.5, -409.4);
+bezierVertex(55, -432.1, 55, -434.1, 49.9, -445.4);
+bezierVertex(34.7, -478.9, -3, -482.9, -24.5, -453.3);
+bezierVertex(-39.1, -433.3, -70.7, -399.1, -89, -383.5);
+bezierVertex(-121.4, -355.8, -142.6, -354.9, -164.5, -380.3);
+bezierVertex(-171.7, -388.7, -174, -394.4, -174, -403.5);
+bezierVertex(-174, -414, -172.5, -416.8, -162, -424.9);
+bezierVertex(-146.5, -436.9, -124.8, -447, -90.4, -458.4);
+bezierVertex(-43.7, -473.8, -23.1, -487.5, -11.5, -511);
+bezierVertex(-2.8, -528.4, -6.8, -549.8, -19.9, -555.7);
+bezierVertex(-39.1, -564.3, -61.6, -549.8, -100.1, -504.2);
+bezierVertex(-135.7, -462, -155, -451.6, -194.8, -453.3);
+bezierVertex(-222.4, -454.4, -235.4, -460.6, -250.5, -479.7);
+bezierVertex(-264.2, -497.1, -268.1, -509.8, -266.8, -532.2);
+bezierVertex(-265.7, -548.6, -264, -553.4, -255.3, -564);
+bezierVertex(-243.1, -578.9, -221, -591.4, -196.3, -597.4);
+bezierVertex(-186.3, -599.8, -155.3, -602.8, -125.6, -604.1);
+bezierVertex(-59.9, -607.2, -39.7, -610.6, 32.5, -630.4);
+bezierVertex(69, -640.4, 80, -647.3, 80, -660.2);
+bezierVertex(80, -668.1, 66.7, -679.1, 54.8, -681.2);
+bezierVertex(46, -682.7, -20.1, -688.1, -29.9, -688.1);
+bezierVertex(-38.8, -688.1, -54.7, -701.4, -58.1, -711.7);
+bezierVertex(-62.9, -726.5, -55.8, -738.4, -39.9, -742);
+bezierVertex(-23.1, -745.8, -10.6, -742.5, 20.5, -725.9);
+bezierVertex(34.6, -718.4, 56, -709.7, 68.1, -706.6);
+bezierVertex(89.1, -701.3, 90.5, -701.2, 104.3, -705.6);
+bezierVertex(131.9, -714.5, 135.2, -730.1, 116.1, -761.5);
+bezierVertex(100.4, -787.3, 71.4, -813.3, 46.8, -823.8);
+bezierVertex(9.6, -839.6, -14.7, -864.7, -29.9, -903.1);
+bezierVertex(-35.9, -918.4, -37.3, -927.8, -37.2, -951.8);
+bezierVertex(-37.2, -978.2, -36.2, -983.3, -28.6, -997);
+bezierVertex(-9.8, -1031.3, 27.4, -1032.2, 51.6, -999.1);
+bezierVertex(59.4, -988.5, 61.7, -979.4, 70.6, -926.1);
+bezierVertex(82.1, -856.3, 86.5, -844.8, 112.1, -818);
+bezierVertex(138.6, -790.3, 161.9, -781.4, 176.3, -793.5);
+bezierVertex(185.8, -801.5, 187.1, -810.2, 181.4, -826.4);
+bezierVertex(178.6, -834.4, 175.4, -849.5, 174.4, -859.9);
+bezierVertex(172.8, -876.2, 173.9, -882.3, 182.5, -904.8);
+bezierVertex(198.7, -946.9, 195.5, -965.1, 164.8, -1006.5);
+bezierVertex(146.9, -1030.7, 145.2, -1041.2, 157.3, -1052.1);
+bezierVertex(172.3, -1065.6, 194, -1071, 201.7, -1063.1);
+bezierVertex(204.2, -1060.6, 205.1, -1042.8, 204.6, -1007);
+bezierVertex(203.7, -949, 202.6, -953.4, 229.5, -912.6);
+bezierVertex(238.7, -898.6, 247, -868.7, 247.1, -849);
+bezierVertex(247.1, -841.2, 249.3, -832.8, 252.1, -829.4);
+bezierVertex(261, -818.7, 291.5, -815.6, 304.4, -824.2);
+bezierVertex(306.8, -825.8, 315, -835.3, 322.7, -845.3);
+bezierVertex(330.8, -855.8, 342.4, -866.8, 349.8, -870.9);
+bezierVertex(361, -877.1, 365.3, -877.9, 380.3, -876.9);
+bezierVertex(394.9, -875.9, 400, -874, 410.9, -865.7);
+bezierVertex(421.2, -857.9, 426.6, -855.8, 436.3, -855.8);
+bezierVertex(462, -855.8, 491.5, -876.4, 491.5, -894.3);
+bezierVertex(491.5, -898.7, 487.1, -910.6, 481.8, -920.8);
+bezierVertex(467.5, -948.2, 466.7, -958.6, 476.9, -984.3);
+bezierVertex(494.5, -1028.6, 510.2, -1040.9, 549.4, -1040.9);
+bezierVertex(581.9, -1040.9, 604.2, -1027.8, 609.9, -1005.5);
+bezierVertex(613.7, -990.5, 610.9, -979.4, 595.3, -946.4);
+bezierVertex(561.1, -874.7, 559, -852.5, 584.3, -831.2);
+bezierVertex(590.8, -825.7, 602.2, -819.7, 609.6, -817.8);
+bezierVertex(631.4, -812.3, 646.9, -819, 676.5, -846.4);
+bezierVertex(706.1, -873.8, 721.3, -880.4, 740, -873.8);
+bezierVertex(749.8, -870.3, 752.3, -867.7, 756.5, -855.5);
+bezierVertex(759.3, -847.7, 761.6, -838.3, 761.6, -834.7);
+bezierVertex(761.6, -805.9, 730.1, -777.4, 689.2, -769);
+bezierVertex(680.4, -767.2, 666.2, -762.8, 657.8, -759.3);
+bezierVertex(609.2, -738.9, 629.8, -696.5, 688.3, -696.3);
+bezierVertex(714.2, -696.2, 736.7, -704.2, 764.8, -723.6);
+bezierVertex(815.9, -759, 879, -796.7, 904.1, -807.2);
+bezierVertex(944.5, -823.9, 999.5, -830.3, 1038.3, -822.8);
+bezierVertex(1078.3, -815, 1093.8, -781.1, 1073.2, -746.4);
+bezierVertex(1062.4, -728.3, 1059.2, -727.5, 1020.9, -733.1);
+bezierVertex(959.5, -742.2, 905.9, -738.1, 852.4, -720.3);
+bezierVertex(807.5, -705.4, 759.2, -683.3, 750.9, -674);
+bezierVertex(733.8, -654.9, 737.9, -634.7, 761.7, -621.3);
+bezierVertex(790.3, -605.2, 797.4, -598.2, 799.3, -584.6);
+bezierVertex(801.7, -566.6, 796.1, -557.8, 773.8, -544.7);
+bezierVertex(744.4, -527.3, 736, -511.4, 746.8, -493.9);
+bezierVertex(753.5, -483.1, 764.3, -475.6, 784.1, -468.1);
+bezierVertex(809.9, -458.2, 827.7, -456.8, 857, -462.3);
+bezierVertex(892.1, -468.9, 916.5, -466.9, 940.5, -455.3);
+bezierVertex(979.8, -436.4, 1000.7, -413.6, 1014.1, -374.4);
+bezierVertex(1018.8, -360.8, 1020.2, -348.2, 1020.1, -319);
+bezierVertex(1019.9, -276.2, 1016, -263, 998.7, -248);
+bezierVertex(959.7, -214.1, 899.9, -260.6, 879, -341.1);
+bezierVertex(870, -375.8, 859.8, -394.7, 842.2, -409);
+bezierVertex(819.3, -427.7, 762.3, -447, 740.2, -443.5);
+bezierVertex(726.1, -441.3, 705, -423.4, 700.5, -410);
+bezierVertex(693.1, -387.3, 698.1, -373.3, 724.6, -343.2);
+bezierVertex(775, -285.9, 789.6, -262.4, 792.9, -233);
+bezierVertex(795, -214.1, 791.1, -206.8, 774.9, -199.3);
+bezierVertex(758.5, -191.6, 744.9, -189.7, 730.3, -193);
+bezierVertex(713, -196.9, 703.2, -206.4, 701.7, -220.8);
+bezierVertex(694, -295.8, 688.5, -314.9, 669.2, -333.8);
+bezierVertex(649.1, -353.6, 616.2, -361, 589.7, -351.6);
+bezierVertex(569.1, -344.4, 565.5, -334.3, 570.3, -297.1);
+bezierVertex(572, -283.8, 571.5, -276.2, 568.8, -271.9);
+bezierVertex(564.7, -265.5, 547.6, -258.1, 536.7, -258.1);
+bezierVertex(519.2, -258.1, 493.1, -292, 478.8, -333.1);
+bezierVertex(470, -358.3, 461.5, -366.8, 445.5, -366.8);
+bezierVertex(427.3, -366.8, 418.5, -360.5, 412.4, -342.8);
+bezierVertex(404, -318.6, 407.4, -296.1, 426.4, -248.6);
+bezierVertex(445, -202.4, 447.3, -197.6, 477.1, -145.9);
+bezierVertex(493.8, -116.8, 499.2, -104.5, 500.4, -92.8);
+bezierVertex(502.3, -72.7, 496.7, -58.9, 483.9, -52.4);
+bezierVertex(464.5, -42.4, 452.8, -46.8, 437.4, -69.7);
+bezierVertex(422.4, -92, 418, -109.4, 414.5, -158.5);
+bezierVertex(409.6, -228.4, 392.9, -289.5, 364.4, -341.4);
+bezierVertex(350.5, -366.7, 345.3, -371.7, 333, -371.7);
+bezierVertex(307.5, -371.7, 287.9, -349.6, 287.7, -320.3);
+bezierVertex(287.5, -304.5, 288.8, -300.8, 301, -283);
+bezierVertex(308.4, -272.1, 316.7, -257.8, 319.4, -251.1);
+bezierVertex(324.4, -238.9, 325.5, -208.4, 321.5, -195.9);
+bezierVertex(318.1, -185.5, 301, -179.7, 273.5, -179.7);
+bezierVertex(244.2, -179.7, 233.6, -184, 226.6, -198.6);
+bezierVertex(218.3, -216.2, 220.1, -233, 234.3, -268.6);
+bezierVertex(249.3, -306.4, 251.5, -332.3, 241, -351.6);
+bezierVertex(234.6, -363.5, 220.7, -374.4, 211.9, -374.4);
+bezierVertex(193.1, -374.4, 164.1, -320.9, 142.7, -246.6);
+bezierVertex(131.2, -207, 127.3, -188, 113.9, -106.7);
+bezierVertex(104.9, -52.4, 99.8, -37.1, 84.8, -19.7);
+bezierVertex(63.7, 4.7, 15, 16, 0, 0);
+endShape();
+popMatrix();
+};
+
+
+
+mouseClicked = function() {
+    for (var i = 0; i < tiles.length; i++) {
+        if (tiles[i].isUnderMouse(mouseX, mouseY)) {
+            if (tiles[0].isUnderMouse(mouseX, mouseY)) {
+                playerMoney -=50;
+                buyTower1 = true;
+            } else if (tiles[2].isUnderMouse(mouseX, mouseY)) {
+                playerMoney -=100;
+                buyTower2 = true;
+            }
+        }
+    }
+};
+tower1(40,295, 0);
+tower2(115, 295);
+tower3(202, 295, 40, 30, 100, 50);
+tower4 (274,300);
+tower5(330,325);
+
+if (buyTower1 === true) {
+    for (var i = 0; i < (5); i++) {
+    if (movers[i].position.x < tilesShoot[0].x + 125) {
+        angle += 30;
+    }
+    
+    if (movers[i].position.x < tilesShoot[0].x + 65) {
+        if (frameCount % 13 === 0) {
+            movers[i].mass --;
+        }
+        
+        if (movers[i].mass < 0) {
+            fill(240, 22, 233);
+            ellipse (movers[i].position.x, movers[i].position.y,  random(30, 60), random(30, 60));
+            movers[i].position.x = random (width, width + 20);
+            
+            if (i<2) {
+            movers[i].mass = m2;   
+            } else {
+                movers[i].mass = m1; 
+            }
+        }
+    }
+    }
+    
+    if (angle !== 0) {
+        tower1(tilesShoot[0].x + 25, tilesShoot[0].y + 25, angle);
+    } else {
+        tower1(tilesShoot[0].x + 25, tilesShoot[0].y + 25, 0);
+    }
+}
+
+if (buyTower2 === true) {
+    tower2(tilesShoot[1].x + 15, tilesShoot[1].y + 25);
+    for (var i = 0; i < (5); i++) {
+    if (movers[i].position.x < width) {
+        //shoots.update();
+        //shoots.display(150, 5);
+    }
+    
+    //if (movers[i].position.x < shoots.position.x + 5) {
+        //shoots.position.x = 110;
+        //mover.life --;
+        
+        if (movers.mass < 0) {
+            fill(240, 22, 233);
+            ellipse (movers[i].position.x, movers[i].position.y, random(30, 60), random(30, 60));
+            movers[i].position.x = width;
+            movers.mass = 3;
+        }
+
+    }
+}
+};
+
+buyTowers();
+
+};
+}
+
+//other
+{
+var gameText = function() {
+    fill(24, 41, 27);
+    text ("Lives =   " + playerLives, 100, 10, 100, 100);
+    text ("Money =   " + playerMoney, 200, 10, 100, 100);
+};
+
+
+
+}
+
+draw = function() {
+    background(31, 222, 76);
+    
+    towersGeneral();
+    
+    attackers();
+    
+
+    gameText();
+};

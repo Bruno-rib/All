@@ -1,0 +1,66 @@
+pwd				displays the current directory
+ls -la			shows the contents of the current directory
+clear			blank screen
+cd ../..		back 2 directories
+cd *directory*	move forward inside a directory
+bash *file*		runs a shell script
+put *file*		uploads file from current directory (home) to current directory in the remote server
+put -r *directory*	upload directory recursevely (make sure a directory with same name already exists on server)
+get *file* *dest*
+get -r *directory* *dest*	download directory recursevely
+
+mkdir *name*	make a directory in current directory
+rmdir *name*	delete the file
+touch *name*	only creates a file if does not already exists
+rm *name*		delete file
+cp *file* *name*	copy a file
+mv	*file* *destination/name*	rename or move a file
+echo *text*		prints text on screen
+
+
+grep *search* *file*	search for a word in a file
+diff *file1* *file2*	shows the difference between 2 files
+
+cat *file*		displays the contents of the inside of a file
+
+gzip *file*		compress file into zip
+gunzip *file*	unzips file
+tar cvf	*file* *destination of files to compress*  		compress 2 files to upload somewhere (c-create, v-display output, f-file options)(it will become a *.tar file)
+
+passwd					change password
+NAME=Bruno				setting up variable NAME to Bruno. to print put a dollar sign in front ($NAME)
+info *command*			info on whatever command you need (ctrl z)
+*command* > *file* 		creates a new file (or overwrites) with the results of the command
+*command* >> *file*		sticks info to the end of the file
+-rw-rw-r--				'-' reprent file, 'd' represent directory
+						r: read, w: write, x: execute
+-123123123				first (user - u) group permissions owner, second (group - g) group, third (other people - o) all other users
+chmod o+w Bacon			give or take permissions away				
+chmod 754 Bacon			4 - read, 2 - write, 1 - execute, 0 - no permissions (add numbers to add permissions)
+sudo app -get update	this cases update 
+*program* -version		tells the version of installed program
+sudo apt-get install php5	install php 5
+sudo useradd *name*		add a user
+sudo passwd *name*		set password for user
+
+ssh root@*ip*			connect with ssh (requires password)
+ssh-keygen -t rsa		will generate a private key and a public for the server to log in safely
+ssh-copy-id root@*ip*	copy public key to server
+sudo nano /etc/ssh/sshd_config	watch video 16 to turn off password
+sftp root@*ip*			connect with private key
+
+&&if a name of the file has space in it use backward slash before the space in between
+&&need to run a shell script to start a program
+&&main account is root
+&&video number 13 bucky explain the folder etc and how to save user info 
+&&cd.. and then cd var/www/html
+.
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+**separate command prompt**
+npm start
+
+**separate second command prompt**		
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath C:\Users\BrunoSR\Desktop\Bruno\meantut\sampsite\data
+
+**separate third command prompt**
+"C:\Program Files\MongoDB\Server\4.0\bin\mongo.exe"
+
+
+
+
+npm 
+control C                exit npm start
+
+

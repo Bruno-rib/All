@@ -1,0 +1,35 @@
+noStroke();
+background(0, 0, 0);
+var r = 255;
+var g = 0;
+var b = 0;
+
+var z = 0.5;
+var wheel = function(z){
+for (var i = 0; i < 12; i++) {
+pushMatrix();
+rotate (i*30);
+rect(0, 0, 30, z);
+popMatrix();
+}
+};
+
+var angle = 0;
+
+
+draw = function() {
+    
+    var t,c;
+    var fromColor = color(0, 255, 255, 4);
+    var toColor = color(255, 0, 255, 4);
+    noFill();
+       c = lerpColor(fromColor,toColor, angle);
+        stroke(c);
+
+    pushMatrix();
+    translate (mouseX, mouseY);
+    rotate (angle);
+    wheel (0.5);
+    angle++;
+    popMatrix();
+};

@@ -1,0 +1,119 @@
+		a:link {color:black;
+		text-decoration:none;
+		}
+		
+		a:visited {color:maroon;		
+		}
+		
+		a:hover {background-color:darkblue;
+		color:white;
+		text-decoration:underline;
+		font-weight:bold;
+		}
+		
+		a:active {background-color:orange;}
+		
+		body {font-family:lucida sans;
+			
+			}
+		
+		h2 {text-align:center;
+			font-style:italic;
+			font-size:3em;
+			position:relative;
+			top: 10%;
+			color:Skyblue;
+			text-shadow: 2px 2px maroon;
+			}
+			
+		div {font-size:1em;
+		line-height:150%;
+		text-indent:10%;
+			}
+		
+		p {position:relative;
+		left:10%;
+		width:80%;
+		top:15%;
+		}
+		
+		p:first-letter {font-weight:Bold;
+		color:maroon;
+		font-size:1.4em;
+		}
+		
+		#head {
+		position:absolute;
+		width:94%;
+		height:35%;
+		top:3%;
+		left:3%;
+		}
+			h1 {color:maroon;
+			font-family:intial;
+			font-weight:900;
+			font-style:italic;
+			text-align:center;
+			font-size:5em;
+			text-shadow: 2px 2px Skyblue;
+			}
+		
+		#menu {
+		position:absolute;
+		width:10%;
+		height:35%;
+		top:3%;
+		left:3%;
+		}
+			ul {list-style-type:none;
+			padding-left:20%;
+			line-height:2;
+			font-size:1em;
+			text-align:center;
+			font-style:italic;
+			}
+			
+		#box11 {background: linear-gradient(to right, white, rgb(240,220,220));
+		position:absolute;
+		width:48%;
+		height:55%;
+		top:42%;
+		left:3%;
+		}
+		
+		#box12 {background: linear-gradient(to right, rgb(240,220,220), rgb(200,220,240));
+		position:absolute;
+		width:47%;
+		height:55%;
+		top:42%;
+		right:3%;
+		}
+		
+		#box21 {background: linear-gradient(to right, rgb(245,230,230),rgb(200,220,240));
+		position:absolute;
+		width:48%;
+		height:55%;
+		top:100%;
+		left:3%;		
+		}
+		
+		#box22 {background: linear-gradient(to right, rgb(200,220,240), white);
+		position:absolute;
+		width:47%;
+		height:55%;
+		top:100%;
+		right:3%;
+		}
+		
+		#contact {background-color:rgb(255,255,255);
+		position:absolute;
+		width:94%;
+		height:35%;
+		top:160%;
+		left:3%;
+		}
+		
+		#email {font-weight:9000;
+		color:maroon;
+		font-size:1.4em;
+		}

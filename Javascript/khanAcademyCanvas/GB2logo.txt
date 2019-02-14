@@ -1,0 +1,56 @@
+var n1 = 0.01;
+var angle = -45;
+var t = 0;
+var c = 0;
+
+var logo = function() {
+    if (t<746) {
+        
+    if (n1<3) {
+        if (t>50) {
+        n1+=0.1;
+        }
+    
+        for (var j = -1; j<401; j++){
+            stroke(255-j, 148-j, 255-j/2);
+            line (0,j,400,j);
+        }
+    }
+    
+    pushMatrix();
+    noStroke();
+    translate(200 - 10 *n1,300 - 10 *n1);
+    scale(n1);
+    rotate(angle);
+
+    fill(0, 0 , 0 );
+    textSize(36);
+    text("G",-20, 0, 100, 100);
+    text("B",20, 0, 100, 100);
+    textSize(19);
+    text("2",40, -20, 100, 100);
+    ellipse (14, 14, 5, 5);
+    
+    fill(230 - c, 3 - c, 226 - c);
+    textSize(32);    
+    text("G",-20, 0, 100, 100);
+    text("B",20, 0, 100, 100);
+    textSize(16);
+    text("2",40, -20, 100, 100);
+    fill(230 + c, 3 + c/2, 226 + c);
+    ellipse (13, 13, 3, 3);
+    popMatrix();
+    t++;
+    if (t > 400) {
+        angle+= 2;
+        n1+=0.04;
+        c++;
+    }
+    } else {
+        background(0, 0, 0);
+    }
+};
+
+draw = function() {
+    logo();
+};

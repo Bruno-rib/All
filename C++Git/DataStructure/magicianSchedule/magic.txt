@@ -1,0 +1,38 @@
+
+Enter the name of the magician to add: 
+robin has been added as a magician
+Magician Schedule Program - Bruno Ribeiro pc7439
+Magician		Holiday		Customer		main List
+zeuz
+			Christmas Day	jumanji
+zorro
+dalman
+robin
+
+Magician		Holiday		Customer		main List
+zeuz
+			Christmas Day	jumanji
+			New Year's Day	Ulisses
+zorro
+dalman
+robin
+
+Magician		Holiday		Customer		main List
+zeuz
+			Christmas Day	jumanji
+			New Year's Day	Ulisses
+zorro
+			Christmas Day	jorge
+dalman
+robin
+
+Magician		Holiday		Customer		main List
+zeuz
+			Christmas Day	jumanji
+			New Year's Day	Ulisses
+zorro
+			Christmas Day	jorge
+dalman
+			Christmas Day	simpleMan
+robin
+

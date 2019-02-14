@@ -1,0 +1,32 @@
+DOCTYPE
+html
+  head
+    meta(charset="utf-8")
+    title The Bruno
+    link(href='/css/basic.css', rel='stylesheet')
+    style(type="text/css").
+      [ng\:cloak], [ng-cloak], .ng-cloak {
+        display: none;
+      }
+
+  body(ng-app="app2")
+    div(id="big_wrapper")
+      header(id="top_header")
+        h1 The Bruno
+      nav(id="top_menu")
+        section(id="links")
+          a(href="/") Home   
+          a(href="/intro") Intro        
+          a(href="/games") Games
+          a(href="https://www.khanacademy.org/profile/DivineSword/projects") Khan Academy
+          a(href="https://github.com/Bruno-rib") Github
+          a(href="https://www.facebook.com/people/Bruno-Ribeiro/100011074566190") Facebook
+          a(href="https://twitter.com/TheBruno_Wonder") Twitter
+      block content
+      footer(id="the_footer")
+        h2(id="cont") Contact
+        p If you have any questions please contact me through bribeiro100br@gmail.com
+      
+script(src='/lib/angular/angular.js')
+script(src='/application.js')
+

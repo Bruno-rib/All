@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std ;
+
+int main() {
+
+  int fNumber = 2 + 5 ;
+  int lNumber = 4 * 3 ;
+  int sum = fNumber + lNumber ;
+
+  cout << "Hello_World!" << "_did_you_know_that:" << endl ;
+  cout << "\t" << fNumber << "+" << lNumber ;
+  cout << "=" << sum << endl ;
+
+  return 0 ;
+}

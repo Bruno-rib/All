@@ -1,0 +1,95 @@
+angleMode = "degrees";
+
+noiseSeed(0);
+var circles = 150;
+var angle = 170; 
+var positionsx = [];
+var positionsy = [];
+var x = 0;
+var y = 0;
+noStroke();
+
+
+var canvas = function() {
+    if (circles <50) {
+
+    }
+for(var i = 0; i < circles; i++) {
+    positionsx.push(i * cos(i * angle));
+    positionsy.push(i * sin(i * angle));
+}
+positionsx.reverse();
+positionsy.reverse();
+translate(250,200);
+
+for(var i = 0; i < positionsx.length; i++) {
+    fill(255-i/3, 0+i/2, random(0,255));
+    ellipse(positionsx[i], positionsy[i], 50, 50);
+}
+fill(242, 172, 242);
+ellipse (0, 0, 40, 40);
+};
+
+
+
+var landScape = function (mountShape, thick, tall, dispX){
+    for(var t=0; t<10; t += 0.01){
+        var n = noise(t);
+        var x = map(n, 0, 1, 0, width);
+        rect(t/2*mountShape + dispX, tall, thick, -x);
+    }
+};
+
+for (var j = -1; j<401; j++){
+    stroke(255-j/2, 148-j/2, 35+j);
+    line (0,j,400,j);
+}
+
+noStroke();
+for (var i = 0; i <400; i +=1){
+fill(255, 225, 0);
+ellipse (-20,-40,100,100);
+stroke(252, 240, 5,150 - i/2);
+noFill();
+ellipse (-20,-40,100 + i, 100 + i);
+}
+
+var generator = new Random(1);
+var cloudX = 0;
+var cloudY = 0;
+
+var cloud = function (cloudX, cloudY) {
+    for (var i=0;i<400;i++){
+    var numX = generator.nextGaussian();
+    var numY = generator.nextGaussian();
+    var standardDeviation = 20;
+    var mean = 200;
+    var x = standardDeviation * numX + mean;
+    var y = standardDeviation * numY + mean;
+
+    stroke (255, 255, 255, random (10,15));
+    strokeWeight(random (2,50));
+    point(x*2 - 400 +cloudX, y/2 - 100 +cloudY);
+    }
+    
+};
+
+
+noStroke();
+
+
+fill(108, 189, 10);
+landScape (600, 5, 520,0);
+cloud(-200,-200);
+filter (BLUR, 6);
+fill(0, 0, 0);
+arc (300,350, 30, 40, 20, 90);
+arc (280,390, 30, 40, 90, 200);
+rect(280,300,20,100);  
+canvas();
+
+
+cloud (100, -190);
+
+
+

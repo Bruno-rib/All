@@ -1,0 +1,44 @@
+FIRST ASSIGNMENT
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+MAPS IN THE STL
+The standard template library (STL) in C++ has implementations of several data structures that we've studied in this course.  For fast lookups by key, one of the most useful templates is std::map, which uses a search tree to store associations between a key and a value.  An overview of map (and another similar container, set) can be found on pages 704-706 of the textbook.  Note that 'map' here is not related to the first phase of MapReduce, though they perform a similar function.
+
+Assignment
+
+A common file layout for storing data on disk is the CSV (comma-separated values) format.   A CSV file is posted in this module (customers.csvPreview the document) containing an anonymized list of customers from a telecom provider.  The data in this file is an example of what a provider would use as for "churn analysis" -- trying to detect which customers are likely to "churn" (meaning, close their account) given a set of attributes about their account.  In doing this analysis, one of the first things we might do is start looking at monthly charges associated with a particular customer. 
+
+Using the STL map template, read this file and build a map of (customer ID, monthly charges) for each entry.  Then in a loop, prompt the user to enter a customer ID (like 6713-OKOMC) and the program should output the monthly charges for that customer.  If a user enters an upper or lowercase X, quit the loop and exit the program (be sure to explain this in the prompt).  Use the MonthlyCharges field in the CSV file as the output value.  Also be sure to output the charges formatted as currency (i.e. fixed point, two decimal digits precision, and prefixed with the '$' sign).
+
+Parsing CSV FIles
+
+CSV is a simple text format that can be parsed using one of several methods.  As a starting point, you can use the below function, parse_line(), to return a vector of the values in each row in the file.  The vector then contains the columns so you can refer to each column by its index.  For example, row[0] would contain the Customer ID and row[19] would contain the MonthlyCharges value for that customer.
+
+void parse_line(const string &str,
+        vector<string> &row) {
+    istringstream istr(str);
+    string tmp;
+    while (getline(istr, tmp, ',')) {
+        row.push_back(tmp);
+    }
+}
+What to Submit
+
+Submit your .cpp file.  Your code must implement the solution using the map template in the STL.
+
+Example Run
+
+Enter the customer ID (X to quit):  7590-VHVEG
+
+The customer's monthly charges are:  $29.85.
+
+Enter the customer ID (X to quit): 1234-NONE
+
+That customer does not exist in the file.
+
+Enter the customer ID (X to quit): 8456-QDAVC
+
+The customer's monthly charges are:  $78.70.
+
+Enter the customer ID (X to quit): X
+
+Exiting....

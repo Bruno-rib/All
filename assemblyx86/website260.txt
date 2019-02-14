@@ -1,0 +1,260 @@
+ 
+
+COMSC-260
+Fall  2018
+
+EXAM SCHEDULE
+
+Midterm : Wednesday, Oct. 17 
+
+Quizzes - No makeup quizzes will be given. The lowest quiz will be dropped. 
+
+Final exam : Wed., Dec. 12, at 2:30pm
+
+DOCUMENTS
+
+syllabus260FA18.pdf
+ProgramExpectations.pdf
+AcademicIntegrityForm.pdf
+DVC COMPUTER SCIENCE CERTIFICATES
+
+Five new, state-approved "certificates of achievement" in computer science are now available at DVC. One of the certifcates is for Computer Architecture which you can get if you complete the series: COMSC 110, 265(165), and 260. You can apply for the Computer Architecture certificate even though you are currently enrolled in comsc-260. If you fulfill the requirements for a certificate it will be noted on your transcript. You will find downloadable forms that you can fill out to apply for a certificate at the following link: DVC Computer Science Department
+
+LECTURES
+
+Lecture Aug. 27 - Introduction to Assembly and Computer Architecture, compiling steps  chapt_01Edit.pdf   chapt_02Edit.pdf   progTemplate.asm   RegistersX8632Bit.pdf     registers.asm   registersWorksheet.asm   CompilingSteps.pdf 
+
+Lecture Aug. 29 - Basic elements of assembly lang., add, sub, mul and mov instructions, coding expectations   chapt_03Edit.pdf    chapt_04Part1.pdf    add.asm    sub.asm   mul.asm   mulWorksheet.txt 
+
+Lecture Sept. 3 - Holiday - Labor Day - No class 
+
+Lecture Sept. 5 - mul (multiplication) and div (division) instructions, Displaying strings, declaring constants,, arrays and strings,   div.asm       divWorksheet.txt    WriteStringCharLFconstants.asm 
+
+Lecture Sept. 10 - Declaring variables, how variables are stored in memory, binary addition, subtraction, multiplication, division, conversion (ch. 1.3.1)hex addition, subtraction, conversion (ch 1.3.4),    vars.asm   VariableDeclarationWorksheet.pdf   LittleEndian.pdf   hexBinaryDecimalOperationsAndConversion.pdf    WorkSheethexBinaryDecimalOperationsAndConversion.pdf 
+
+Lecture Sept. 12 - unsigned jumps (6.3), cmp instruction, if and if/else (6.2.7), while loops (6.5.3) and doWhile loops   carryZeroFlags.asm   flagsDisplayVC.pdf   flagsRegister.pdf   forLoop.asm   unsignedJumps.asm   jumpTable.pdf   UnsignedJumpExercise.txt   ifElse.asm   doWhileLoop.asm   whileLoop.asm
+
+Lecture Sept. 17 - while and doWhile loops (from Sept. 12), using a macro to print a string, ReadHex, Irvine functions for random number generation; MessageBoxA (Win32 not Irvine), ,   macro_mPrtStr.asm     RandomNumber.asm    ReadHexWriteHex.asm    MessageBoxA.asm
+
+Lecture Sept. 19 - transistors, logic gates and circuits, AND, OR, XOR instructions; ,    logicGatesCircuitsE.pdf   AdderCircuit.pdf   OR_AND_XOR_Worksheet.txt
+
+Lecture Sept. 24 - and, or, xor instructions, addressing memory(4.4),dislaying a dword or byte array,beginning functions    ,stack operations (push, pop)(5.1)   AndOrXorBasic.asm   DisplayDecArray.asm   DisplayByteArray.asm   addressing.asm   add3.asm   stack.pdf   stack.asm   stackWorksheet.pdf
+
+Lecture Sept. 26 - continue stack stack operations, passing parameters on stack, local variables(8.2.5),using AND,OR,XOR instructions(6.2))   paramPassing.asm   StackFrame.pdf   localVars.asm   LocalVariablesonStackWorksheet.pdf   LocalVariablesonStackWorksheetAns.pdf   PassingParametersonStackWorksheetB.pdf    PassingParametersonStackWorksheetAnsB.pdf
+
+Lecture Oct. 1 - continue stack stack operations (See Sept. 26 for files) passing parameters on stack, calling conventions, local variables(8.2.5)     CallingConventions.pdf   callingConventions.cpp   stackWorksheetAns.pdf
+
+Lecture Oct. 3 - signed numbers(1.3.6) signed numbers jump table, signed jumps, two's complement(1.3.6),   signedNumbers.pdf    signedJumps.asm   twosComplement.pdf  twosComplementWorkSheet.txt   jumpExerciseSigned.txt   jumpTableSigned.pdf
+
+Lecture Oct. 8 - continue signed numbers, not(6.2.6), neg(4.2.4), imul and idiv instructions, overflow,cbw, cwd and cdq    notneg.asm   imul.asm   overflow.asm    idiv.asm   CBW_CWD_CDQ_NEG_NOT.pdf   cbw_cwd_cdq_movsx_worksheet.txt
+
+Lecture Oct. 10 - idiv, DspDword, clearing(6.2.2), setting and flipping bits(6.2.5)    DspDwordFA18.asm    bitsSetClear.pdf    SettingClearingFlippingWorksheet.txt
+
+Lecture Oct. 15 - clearing(6.2.2), setting and flipping bits (from Oct. 10) review for midterm, 
+
+Lecture Oct. 17 - Midterm (882-E Scantron required - 25 cents in bookstore - also need #2 pencil) 
+
+Lecture Oct. 22 - shifting bits (7.1), shifting to multiply and divide, shifter circuit, rotating bits(7.1.5 - 7.1.7)      Shifting.pdf   shiftAndRotate32.pdf   ShiftingtoMultiplyx2.pdf   shifting.asm   mulShift1413.asm   shiftingWorksheet.txt   shifter.pdf   Rotating.pdf  rotatingWorksheet
+
+Lecture Oct. 24 - shifter circuit,bt instruction (copy a bit to the carry flag), ADC and SBB instructions   shifterRight.pdf   bt.asm   adc.asm   sbb.asm
+
+Lecture Oct. 29 - string instructions    strInst.asm   StringInstructionsWorksheet.txt
+
+Lecture Oct. 31 - High Level Language Interface (Calling asm routine from C++); inline assembly,    HLLInterfaceAsm.asm   HLLInterfaceCpp.cpp   inlineAsm.cpp 
+IEEE short floating point format   floats.pdf   chapt_17Floats.pdf (ch. 12 in latest edition)   floats.asm   worksheetFloats.pdf   Convert Decimal Fraction To Binary WorkSheet
+
+Lecture Nov. 5 - floating point unit, floating point stack, fadd    FloatingPointStack.pdf   FloatingPointUnit.pdf   fadd.asm   FPUworksheet.txt
+
+Lecture Nov. 7 - floating point unit, floating point stack, fadd, structs    structs.asm   alignment.pdf   structWorksheet.txt
+
+Lecture Nov. 12 - Holiday - Veterans Day
+
+Lecture Nov. 14 - Displaying Floating point numbers, configuring VS 2015, 2017 for 64 bit programming, working with 64 bit registers    DspFloat.asm   KennedyDspFloat.lib   
+Setting up VS 2015 or 2017 for 64 bit programming   registers64.asm   RegistersX8664Bit.pdf   ShadowMemory.pdf    MessageBox64.asm
+
+Friday Nov. 16 - Last day to drop with a 'W' 
+
+Lecture Nov. 19 - All classes canceled due to poor air quality.
+
+Lecture Nov. 21 - All classes canceled due to poor air quality.
+
+Lecture Nov. 26 - real address and protected memory modes, Kennedy 64 bit I/O library,    Worksheet 64 Bit Programming   Answers to Worksheet 64 Bit Programming
+
+   chapt_02Memory.pdf   WorksheetMemoryModes.txt   DspStrCharDec64.asm   Kennedy64IO.lib 
+
+Lecture Nov. 28 - Virtual Memory   VirtualMemory.pdf   WorksheetVirtualMemory.pdf   WorksheetVirtualMemoryQuestions.txt
+
+Lecture Dec. 3 - Lab only, no lecture - Prog. 8 due   WorksheetMemoryModesAns.pdf
+
+Lecture Dec. 5 - interrupts   interrupts32.pdf   WorksheetInterrupts.txt 
+
+Lecture Dec. 10 - review for final
+
+Lecture Dec 12 - Final Exam (2:30) (882-E Scantron required - 25 cents in bookstore - also need #2 pencil) 
+
+LIBRARIES
+Irvine32.lib
+
+KennedyDspFloat.lib
+
+Windows 10 Screen Shot
+Sometimes when you are having problems with a programming assignment and you need help, it is helpful to send the instructor a screenshot of the problem.
+
+To take a screen shot of an area in Windows 10 hold down the shift and windows key together with 's'. Then draw a rectangle around the area you wish to capture which puts it into the clipboard. You can then paste it into an email and resize to a smaller size by dragging the corners of the image
+
+ASSIGNMENTS
+(To be posted)
+programmingAssignment1.pdf
+
+programmingAssignment2.pdf   evalExpressionExample.cpp
+
+programmingA3.pdf
+
+programmingAssignment4.pdf   prog4FA18Student.asm   adder.pdf
+
+programmingAssignment5.pdf    Do not copy the following file from this web page. You must download it.  prog5OperFA18.asm
+
+programmingAssignment6.pdf   prog6FA18Student.asm   shifterRight.pdf
+
+programmingAssignment7.pdf    prog7strManipStudentFA18CPP.cpp   prog7strManipStudentFA18ASM.asm
+
+prog8FloatFA18Student.asm   Program 8 (Due date changed to Monday Dec. 3 from Nov. 26) - all specifications are in the source file. Do not copy the file from this web page. You must download it.
+
+QUIZ STUDY GUIDES
+
+(To be posted)
+Quizzes - No makeup quizzes will be given. The lowest quiz will be dropped.
+
+quiz1.txt - Sept. 10
+
+quiz2.txt - Sept. 19
+
+quiz3.txt - Oct. 1
+
+quiz4.txt - Oct. 10
+
+quiz5.txt - Oct. 29
+
+quiz6.txt - Oct. 31
+
+quiz7.txt - Nov. 14
+
+quiz8.txt - Changed to Nov. 26 from Nov. 21
+
+quiz9.txt - Dec. 5
+
+EXAM STUDY GUIDES
+
+(To be posted)
+StudyGuideMidterm260.txt (882-E Scantron and #2 pencil required) Midterm is on October 17
+
+StudyGuideFinalExamFA18.txt (882-E Scantron and #2 pencil required )
+
+Include the Irvine Library in your Visual Studio Project
+
+In order to use the Irvine library functions you must include the Irvine Library in your Visual Studio Project. The Irvine Library is already installed on on the lab computers.
+
+To include the Irvine library in your Visual Studio Project do the following:
+
+Create your Visual Studio Project as usual. Then in the Visual Studio solution right click on your project name and select "Add existing item". Browse to where Irvine32.lib is located and select it. Irvine32.lib should then appear in your project.
+
+You can find Irvine32.lib on the lab computers at C:\Irvine\Irvine32.lib.
+
+You can also download Irvine32.lib by clicking on the following link: Irvine32.lib
+
+Visual C++
+
+If you wish to do your programming assignments at home I suggest you install VS 2017 Community which you can download at the following link: VS 2017 Community download
+
+Important: when you install Visual Studio 2017 Community you must select “.NET Desktop Development” and “Desktop Development with C++” under the Workloads tab.
+
+You can take advantage of syntax highlighting by installing AsmHighlighter as noted below.
+
+Click on the following link for instructions on installing VS or watch the YouTube video in the YouTube video section below: visualCInstructions2602017.pdf
+
+If you get the following error message while compiling: "fatal error LNK1281: Unable to generate SAFESEH image" . . .
+
+If you get an "fatal error LNK1281: Unable to generate SAFESEH image" message while compiling your program in Visual Studio please do the following so that your program will compile.
+
+project->properties->linker->advanced->Image has safe exception handlers->no (change yes to no)
+
+If you get the following error message while compiling: "error LNK2001: unresolved external symbol _mainCRTStartup" . . .
+
+If you get "error LNK2001: unresolved external symbol _mainCRTStartup" in the solution explorer right click on your project name then click on "Build Dependencies"->"Build Customizations" and make sure MASM is selected. Then right click on your source file then properties and make sure item type is "Microsoft Macro Assembler" and "Excluded From Build" is no or blank"
+
+Error: A subsystem can't be inferred and must be defined
+
+If you get the "a subsystem can't be inferred and must be defined" error while compiling you must select a subsystem by doing the following:
+right click on your project and click on properties then click on the following: 
+Project ->properties->Configuration Properties->Linker->System->SubSystem->Console (/SUBSYSTEM:CONSOLE)
+
+Windows Defender detects a virus threat when you compile
+
+After you compile your program a Windows Defender Virus threat may pop up. This means that Windows Defender has erroneously flagged your executable as a threat.
+
+To avoid this error you must either disable Windows Defender or add an exclusion for your build directory which is usually your project directory.
+
+To add an exclusion for your build directory do the following: Launch Windows Defender->Virus and threat protection->Virus and threat protection settings->exclusions->add an exclusion->folder name to exclude.
+
+The default build directory (project directory) is: users->User name->documents->Visual Studio17 or 15->projects
+
+Installing Visual Studio on a Mac
+
+Before you can install Visual Studio on a Mac you must first install Windows. You have 2 choices for installing Windows: you can either have a dual boot system (Boot Camp) or you can run Windows as a virtual machine (Virtual Box or Parallels Desktop). In general if you run Windows on a dual boot system you will have better performance.
+
+If you do an internet search for installing Windows on a Mac you will find lots of resources. Click on the following link for one such resource:
+How to run Windows 10 on a Mac
+
+Install AsmHighlighter or Asm-Dude for syntax highlighting
+
+Currently the Visual C++ editor does not highlight the syntax for assembly language programs. You can add syntax highlighting by installing either AsmHighlighter or Asm-Dude per the directions listed below.
+
+Install AsmHighlighter
+
+You can add syntax highlighting the Community Edition of Visual Studio 2017 by clicking on the link below and downloading and installing AsmHighlighter.
+To install AsmHighlighter exit all versions of Visual Studio then download and double click on the following file: AsmHighlighter2017.vsix
+
+In order to get AsmHighlighter to work you may have to delete the following registry key: 
+HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\(11.0, 12.0 or 14.0)\FontAndColors\Cache
+
+You can manually delete the registry key by doing the following: you can launch the registry editor by searching for regedit in the "Search programs and files" box after clicking on the start icon.
+
+To find out more information about AsmHighlighter you can click on the following link: AsmHighlighter
+
+Asm-Dude
+
+You can also add syntax highlighting to the Visual Studio 2017 by installing Asm-Dude.
+
+To install Asm-Dude exit all versions of Visual Studio then download and double click on the following file: AsmDude.vsix
+
+To find out more information about Asm-Dude you can click on the following link: Asm-Dude 
+
+YouTube Videos
+
+How to create a VC++ project and add a file 
+
+How to debug a 32 bit assembly language program using Visual Studio 
+
+
+
+Logging in to Lab Computers
+
+Every time you come into the lab you must login with your DVC login.
+
+Google Drive and Microsoft Onedrive
+
+To access Google Drive you must have a Google account. If you have gmail you have a google account.
+
+To access Google Drive please do the following:
+-launch Google Drive from "All Programs"
+-In the lower right of the taskbar click on the '^' then select Google Drive to login. After you have logged in then you should see Google Drive as a folder in Windows explorer. To launch Windows Explorer tap the Windows Key (circled flags on the bottom of the keyboard) and the 'e' simultaneously.
+
+For instructions on how to access Microsoft OneDrive please click on the following link:
+How access Microsoft OneDrive in the lab and online versions of Word, Excel and PowerPoint
+
+END OF SEMESTER SURVEY
+
+Do not take the survey below until directed to do so by your instructor.
+
+Please click on the link below to take the END of semester survey for Comsc-260. After clicking on the link please select Comsc-260 and then next. Your answers are anonymous and will not effect your status in the class.
+End of Semester Survey

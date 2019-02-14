@@ -1,0 +1,45 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+SECOND ASSIGNMENT
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+More on Maps
+
+The map() container is capable of more than just (k, v) sets and gets.  We can also use it to find a range of values that fall in between X and Y.  This is useful where we don't know the exact key, or need to enumerate a range of items (for example, all customer IDs created at a certain branch office).
+
+Assignment
+
+Using the same file from the previous lab (customers.csvPreview the document), prompt the user to enter a range of two key values, and print out the records that fall in the range (inclusive) and their monthly charges.  Use the same input/output format as in the previous lab, except this time you will be outputting a list of customers instead of one and accepting two values as input.
+
+To do this efficiently, you will need to make use of the std::map::lower_bound and std::map::upper_bound methods in the map container (these are also described in pp. 704-708 of the book as well as in the STL documentation, found easily in Google).  This requires the use of iterators, which you may not have learned up to this point.  Here is some sample code that would iterate through an entire map() and print the contents:
+
+#include <iostream>
+#include <map>
+using namespace std;
+int main() {
+    map<string, string> things;
+
+    things.insert(make_pair("dog", "leash"));
+    things.insert(make_pair("car", "key"));
+    things.insert(make_pair("rain", "umbrella"));
+
+    map<string, string>::iterator item = things.begin();
+    map<string, string>::iterator end = things.end();
+
+    for (; item != end; ++item)
+        cout << item->first << endl;
+}
+What to Submit
+
+Submit your .cpp file.  Your code must implement the solution using the map template in the STL.
+
+Example Run
+
+Enter the lower and upper values of the range (X to quit): 
+1095-WGNGG
+1098-KFQEC
+The customers in this range are: 
+	1095-WGNGG: $101.05
+	1096-ADRUX: $74.25
+	1097-FSPVW: $54.55
+	1098-KFQEC: $19.40
+Enter the lower and upper values of the range (X to quit): X
+Exiting...

@@ -1,0 +1,108 @@
+var rainX = [500];
+var rainY = [400];
+var rainX1 = [500];
+var rainY1 = [400];
+var rainX2 = [500];
+var rainY2 = [400];
+var rainX3 = [500];
+var rainY3 = [400];
+noStroke();
+
+/* there are 4 layers of falling objects
+ -all have different speeds of falling
+ -3 faster layers have array of colors
+ -slower and smaller first layer have random colors for the "blinking" experience
+ -image follows mouse
+ -you can add a small far away star by clicking on screen
+ */
+
+
+
+
+// add smallest stars by clicking
+mouseClicked = function(){
+  rainX.push (mouseX);  
+  rainY.push (mouseY);
+};
+
+
+//far away blinking stars with random loop restarting at the top
+draw = function() {
+    background (3, 0, 3);
+    for (var i = 0; i < rainX.length; i++){
+        noFill();
+        stroke (random(60,255), random(60,255), random(60,255));
+        strokeWeight(2);
+        ellipse (rainX[i], rainY[i], 1, 1);
+            rainY[i] += 1/5;
+        if(rainY[i] > 401){
+            rainY[i] = random(-400,0);
+            rainX[i] = random(-10, 700);
+            if (rainX.length < 200){
+            rainX.push (-100);  
+            rainY.push (500);
+            }   
+        }
+    }
+    
+    // faster circle stars with array of colors and random position looping 
+    for (var i = 0; i < rainX1.length; i++){
+        noFill();
+        stroke (rainX1[i], 38, 255);
+        strokeWeight(4);
+        ellipse (rainX1[i], rainY1[i], 2, 2);
+            rainY1[i] += 1;
+        if(rainY1[i] > 450){
+            rainY1[i] = random(-400,0);
+            rainX1[i] = random(-10, 600);
+            if (rainX1.length < 15){
+            rainX1.push (-100);  
+            rainY1.push (500);
+            }
+        }
+    }
+    
+    //faster comets with array of colors and looping
+        for (var i = 0; i < rainX2.length; i++){
+            
+    //pilot image that follows the mouse
+            var pilot = getImage("space/beetleship");
+            image (pilot, mouseX - 15,mouseY - 15,100,100);
+            
+        noFill();
+        stroke (rainX2[i], 150, rainX2[i]/2);
+        strokeWeight(6);
+        triangle (rainX2[i] - 1, rainY2[i] + 1, rainX2[i], rainY2[i] + 1, rainX2[i] + 1, rainY2[i] -1);
+            rainY2[i] += 2;
+        if(rainY2[i] > 450){
+            rainY2[i] = random(-400,0);
+            rainX2[i] = random(-10, 600);
+            if (rainX2.length < 10){
+            rainX2.push (-100);  
+            rainY2.push (500);
+            }
+        }
+    }
+    
+    //faster, and bigger, comets with array of colors and looping
+            for (var i = 0; i < rainX3.length; i++){
+        noFill();
+        stroke (rainX3[i]/2 + 50, rainX3[i] + 50, 155);
+        strokeWeight(8);
+        triangle (rainX3[i] + 1, rainY3[i] + 1, rainX3[i], rainY3[i] + 1, rainX3[i] - 1, rainY3[i] -1);
+            rainY3[i] += 4;
+            
+            
+        if(rainY3[i] > 450){
+            rainY3[i] = random(-400,0);
+            rainX3[i] = random(-10, 600);
+            if (rainX3.length < 5){
+            rainX3.push (-100);  
+            rainY3.push (500);
+            }
+        }
+    }
+};
+
+
+

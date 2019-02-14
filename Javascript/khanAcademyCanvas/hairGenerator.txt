@@ -1,0 +1,77 @@
+var yay = getImage("creatures/Hopper-Happy");
+image (yay,159,95,120,120);
+
+
+
+for (var t = 100; t<300; t +=0.1) {
+    var n = noise(t);
+    point(t,n*100);
+    point(t,n*100 + 200);
+    point(n*100 + 55,t - 50);
+    point(n*100 + 255,t - 50);
+}
+
+
+var limitTop = 100;
+var limitBottom = 100;
+var limitRight = 200;
+var limitLeft = 200;
+var Walker = function() {
+    this.x = limitRight;
+    this.y = limitTop;
+};
+
+Walker.prototype.display = function() {
+    stroke(random(0,255), 0, 0);  
+    strokeWeight (2);
+    noFill();
+    ellipse (this.x, this.y, 20, 20);
+    
+};
+
+// Randomly move right, left, down, or up
+Walker.prototype.walk = function(limitTop, limitBottom, limitLeft, limitRight) {
+    var choice = floor(random(4));
+    if (choice === 0) {
+        //move right
+        if (this.x > limitRight) {
+            this.x = limitLeft;
+        }else{
+        this.x +=3;}
+    } else if (choice === 1) {
+        //move left
+        if (this.x<limitLeft){
+            this.x = limitRight;
+        }else{
+        this.x-=3;}
+    } else if (choice === 2) {
+        //move down
+        if (this.y > limitBottom) {
+            this.y=limitTop;
+        }else {
+        this.y+=3;}
+    } else {
+        //move up
+        if (this.y <limitTop){
+            this.y = limitTop;
+        }else {
+            this.y-=1;
+        }
+    } 
+};
+
+var w = new Walker();
+var z = new Walker();
+var s = new Walker();
+var r = new Walker();
+
+for (var i=0; i<400; i++){ 
+    w.walk(80,110,160,260);
+    w.display();
+    z.walk(80,110,180,240);
+    z.display();
+    s.walk(110,210,160,170);
+    s.display();
+    r.walk(110,210,250,260);
+    r.display();
+}

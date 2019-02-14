@@ -1,0 +1,818 @@
+//click with mouse to start
+// press UP to run bases
+// press DOWN to go back
+
+//           GAME STILL IN WORK!!
+
+
+//global variables
+{
+//logo
+var n = 0.01;
+var angle = -45;
+var t = 0;
+var c1 = 0;
+
+//intro screen
+var t1 = 0;
+var n1 = 1;
+var scene = 1;
+
+//game over 
+var sizeGO = 0;
+var angleGO = 0;
+
+//trow animation
+var tt = 0;
+
+//field game screen
+var maxDir = new PVector(width,height);
+var maxMag = maxDir.mag();
+var hunX = 160;
+var hunY = 190;
+var mov = 1;
+var x = 60;
+var y = 340;
+var score = 0;
+var speed = 5;
+var m = 0;
+var p = 0;
+var life = 1000;
+var mana = 1000;
+
+//hunters
+var a = 1000;
+var b = 0;
+var c = 0;
+var vel = 0.3;
+}
+
+//LOGO 1st screen
+{
+var logo = function() {
+    if (t<746) {
+        
+    if (n<3) {
+        if (t>50) {
+        n+=0.1;
+        }
+    
+        for (var j = -1; j<401; j++){
+            stroke(255-j, 148-j, 255-j/2);
+            line (0,j,400,j);
+        }
+    }
+    
+    pushMatrix();
+    noStroke();
+    translate(200 - 10 *n,300 - 10 *n);
+    scale(n);
+    rotate(angle);
+
+    fill(0, 0 , 0 );
+    textSize(36);
+    text("G",-20, 0, 100, 100);
+    text("B",20, 0, 100, 100);
+    textSize(19);
+    text("2",40, -20, 100, 100);
+    ellipse (14, 14, 5, 5);
+    
+    fill(230 - c1, 3 - c1, 226 - c1);
+    textSize(32);    
+    text("G",-20, 0, 100, 100);
+    text("B",20, 0, 100, 100);
+    textSize(16);
+    text("2",40, -20, 100, 100);
+    fill(230 + c1, 3 + c1/2, 226 + c1);
+    ellipse (13, 13, 3, 3);
+    popMatrix();
+    t++;
+    if (t > 400) {
+        angle+= 2;
+        n+=0.04;
+        c1++;
+    }
+    } 
+};
+}
+
+//INTRO 2nd screen
+{
+var field = function(){
+
+background(62, 153, 20);
+
+fill(255, 204, 0);
+noStroke();
+ellipse (160, 240, 20, 20);
+arc (120, 280, 500, 500, 0, 360);
+
+fill(62, 153, 20);
+noStroke();
+rectMode(CORNER);
+rect (60, 140, 200, 200);
+
+fill(255, 204, 0);
+noStroke();
+ellipse (160, 240, 40, 40);
+ellipse (60, 140, 60, 60);
+ellipse (260, 140, 60, 60);
+ellipse (260, 340, 60, 60);
+
+fill(62, 153, 20);
+noStroke();
+rect (0, 360, width, height/4);
+rect (0, 0, 40, height);
+
+fill(255, 204, 0);
+ellipse (50, 350, 70, 70);
+
+stroke(255, 255, 255);
+strokeWeight(2);
+fill(255, 255, 255);
+line (50, 330, 50, 0);
+line (70, 350, width, 350);
+
+rectMode(CENTER);
+rect (60, 140, 3, 3);
+rect (260, 140, 3, 3);
+rect (260, 340, 3, 3);
+
+line (30, 141, 30, 179);
+line (29, 140, 15, 140);
+line (29, 180, 15, 180);
+
+line (259, 370, 221, 370);
+line (220, 371, 220, 385);
+line (260, 371, 260, 385);
+
+pushMatrix();
+translate (60, 340);
+rotate(315);
+rect (0, 0, 6, 7);
+noFill();
+rect (-20, 0, 20, 15);
+rect (-10, -10, 20, 10);
+rect (-10, 10, 20, 10);
+popMatrix();
+};
+
+var baseball = function() {
+    //BAT
+    pushMatrix();
+    rotate(45);
+    fill(224, 161, 52);
+    stroke(92);
+    strokeWeight(3);
+    ellipse(274, 178, 50, 27);
+    popMatrix();
+    
+    pushMatrix();
+    fill(224, 161, 52);
+    stroke(92);
+    strokeWeight(3);
+    beginShape();
+    vertex(59, 303);
+    bezierVertex(148, 251, 231, 100, 296, 43);
+    bezierVertex(319, 27, 350, 47, 332, 77);
+    bezierVertex(245, 171, 191, 187, 83, 328);
+    bezierVertex(77, 337, 52, 312, 59, 303);
+    endShape();
+    popMatrix();
+
+    //baseball
+    fill(255);
+    stroke(200);
+    strokeWeight(3);
+    ellipse(200, 200, 250, 250);
+    fill(255, 0, 0);
+
+    noStroke();
+    pushMatrix();
+    translate(330, 288);
+    for(var i = 0; i < 96; i += 6){
+        rotate(i);
+        triangle(-124, 24, -121, 29, -109, 20);
+        triangle(-124, 20, -121, 27, -135, 20);
+        rotate(-i);
+    }
+popMatrix();
+    
+    translate(19, 49);
+    for(var i = 201; i < 256; i += 4.5){
+        rotate(i);
+        triangle(-174, 24, -171, 29, -159, 20);
+        triangle(-174, 20, -171, 27, -185, 20);
+        rotate(-i);
+    }
+
+};
+
+var splat = function() {
+
+noStroke();
+beginShape(); 
+vertex(0, 0);
+bezierVertex(-9.7, -10.4, -14.3, -33, -10.4, -51);
+bezierVertex(-6.5, -68.9, -5.1, -71.2, 35.6, -129.1);
+bezierVertex(95.9, -214.6, 117.3, -260.6, 159.2, -393.7);
+bezierVertex(161, -399.6, 152.1, -406.9, 143.1, -406.9);
+bezierVertex(131.5, -406.9, 122.6, -399.6, 117, -385.4);
+bezierVertex(110.7, -369.5, 106.6, -366.2, 90.4, -364.4);
+bezierVertex(75, -362.7, 56.6, -368.9, 49.2, -378.3);
+bezierVertex(44, -385, 44.1, -386.7, 49.5, -409.4);
+bezierVertex(55, -432.1, 55, -434.1, 49.9, -445.4);
+bezierVertex(34.7, -478.9, -3, -482.9, -24.5, -453.3);
+bezierVertex(-39.1, -433.3, -70.7, -399.1, -89, -383.5);
+bezierVertex(-121.4, -355.8, -142.6, -354.9, -164.5, -380.3);
+bezierVertex(-171.7, -388.7, -174, -394.4, -174, -403.5);
+bezierVertex(-174, -414, -172.5, -416.8, -162, -424.9);
+bezierVertex(-146.5, -436.9, -124.8, -447, -90.4, -458.4);
+bezierVertex(-43.7, -473.8, -23.1, -487.5, -11.5, -511);
+bezierVertex(-2.8, -528.4, -6.8, -549.8, -19.9, -555.7);
+bezierVertex(-39.1, -564.3, -61.6, -549.8, -100.1, -504.2);
+bezierVertex(-135.7, -462, -155, -451.6, -194.8, -453.3);
+bezierVertex(-222.4, -454.4, -235.4, -460.6, -250.5, -479.7);
+bezierVertex(-264.2, -497.1, -268.1, -509.8, -266.8, -532.2);
+bezierVertex(-265.7, -548.6, -264, -553.4, -255.3, -564);
+bezierVertex(-243.1, -578.9, -221, -591.4, -196.3, -597.4);
+bezierVertex(-186.3, -599.8, -155.3, -602.8, -125.6, -604.1);
+bezierVertex(-59.9, -607.2, -39.7, -610.6, 32.5, -630.4);
+bezierVertex(69, -640.4, 80, -647.3, 80, -660.2);
+bezierVertex(80, -668.1, 66.7, -679.1, 54.8, -681.2);
+bezierVertex(46, -682.7, -20.1, -688.1, -29.9, -688.1);
+bezierVertex(-38.8, -688.1, -54.7, -701.4, -58.1, -711.7);
+bezierVertex(-62.9, -726.5, -55.8, -738.4, -39.9, -742);
+bezierVertex(-23.1, -745.8, -10.6, -742.5, 20.5, -725.9);
+bezierVertex(34.6, -718.4, 56, -709.7, 68.1, -706.6);
+bezierVertex(89.1, -701.3, 90.5, -701.2, 104.3, -705.6);
+bezierVertex(131.9, -714.5, 135.2, -730.1, 116.1, -761.5);
+bezierVertex(100.4, -787.3, 71.4, -813.3, 46.8, -823.8);
+bezierVertex(9.6, -839.6, -14.7, -864.7, -29.9, -903.1);
+bezierVertex(-35.9, -918.4, -37.3, -927.8, -37.2, -951.8);
+bezierVertex(-37.2, -978.2, -36.2, -983.3, -28.6, -997);
+bezierVertex(-9.8, -1031.3, 27.4, -1032.2, 51.6, -999.1);
+bezierVertex(59.4, -988.5, 61.7, -979.4, 70.6, -926.1);
+bezierVertex(82.1, -856.3, 86.5, -844.8, 112.1, -818);
+bezierVertex(138.6, -790.3, 161.9, -781.4, 176.3, -793.5);
+bezierVertex(185.8, -801.5, 187.1, -810.2, 181.4, -826.4);
+bezierVertex(178.6, -834.4, 175.4, -849.5, 174.4, -859.9);
+bezierVertex(172.8, -876.2, 173.9, -882.3, 182.5, -904.8);
+bezierVertex(198.7, -946.9, 195.5, -965.1, 164.8, -1006.5);
+bezierVertex(146.9, -1030.7, 145.2, -1041.2, 157.3, -1052.1);
+bezierVertex(172.3, -1065.6, 194, -1071, 201.7, -1063.1);
+bezierVertex(204.2, -1060.6, 205.1, -1042.8, 204.6, -1007);
+bezierVertex(203.7, -949, 202.6, -953.4, 229.5, -912.6);
+bezierVertex(238.7, -898.6, 247, -868.7, 247.1, -849);
+bezierVertex(247.1, -841.2, 249.3, -832.8, 252.1, -829.4);
+bezierVertex(261, -818.7, 291.5, -815.6, 304.4, -824.2);
+bezierVertex(306.8, -825.8, 315, -835.3, 322.7, -845.3);
+bezierVertex(330.8, -855.8, 342.4, -866.8, 349.8, -870.9);
+bezierVertex(361, -877.1, 365.3, -877.9, 380.3, -876.9);
+bezierVertex(394.9, -875.9, 400, -874, 410.9, -865.7);
+bezierVertex(421.2, -857.9, 426.6, -855.8, 436.3, -855.8);
+bezierVertex(462, -855.8, 491.5, -876.4, 491.5, -894.3);
+bezierVertex(491.5, -898.7, 487.1, -910.6, 481.8, -920.8);
+bezierVertex(467.5, -948.2, 466.7, -958.6, 476.9, -984.3);
+bezierVertex(494.5, -1028.6, 510.2, -1040.9, 549.4, -1040.9);
+bezierVertex(581.9, -1040.9, 604.2, -1027.8, 609.9, -1005.5);
+bezierVertex(613.7, -990.5, 610.9, -979.4, 595.3, -946.4);
+bezierVertex(561.1, -874.7, 559, -852.5, 584.3, -831.2);
+bezierVertex(590.8, -825.7, 602.2, -819.7, 609.6, -817.8);
+bezierVertex(631.4, -812.3, 646.9, -819, 676.5, -846.4);
+bezierVertex(706.1, -873.8, 721.3, -880.4, 740, -873.8);
+bezierVertex(749.8, -870.3, 752.3, -867.7, 756.5, -855.5);
+bezierVertex(759.3, -847.7, 761.6, -838.3, 761.6, -834.7);
+bezierVertex(761.6, -805.9, 730.1, -777.4, 689.2, -769);
+bezierVertex(680.4, -767.2, 666.2, -762.8, 657.8, -759.3);
+bezierVertex(609.2, -738.9, 629.8, -696.5, 688.3, -696.3);
+bezierVertex(714.2, -696.2, 736.7, -704.2, 764.8, -723.6);
+bezierVertex(815.9, -759, 879, -796.7, 904.1, -807.2);
+bezierVertex(944.5, -823.9, 999.5, -830.3, 1038.3, -822.8);
+bezierVertex(1078.3, -815, 1093.8, -781.1, 1073.2, -746.4);
+bezierVertex(1062.4, -728.3, 1059.2, -727.5, 1020.9, -733.1);
+bezierVertex(959.5, -742.2, 905.9, -738.1, 852.4, -720.3);
+bezierVertex(807.5, -705.4, 759.2, -683.3, 750.9, -674);
+bezierVertex(733.8, -654.9, 737.9, -634.7, 761.7, -621.3);
+bezierVertex(790.3, -605.2, 797.4, -598.2, 799.3, -584.6);
+bezierVertex(801.7, -566.6, 796.1, -557.8, 773.8, -544.7);
+bezierVertex(744.4, -527.3, 736, -511.4, 746.8, -493.9);
+bezierVertex(753.5, -483.1, 764.3, -475.6, 784.1, -468.1);
+bezierVertex(809.9, -458.2, 827.7, -456.8, 857, -462.3);
+bezierVertex(892.1, -468.9, 916.5, -466.9, 940.5, -455.3);
+bezierVertex(979.8, -436.4, 1000.7, -413.6, 1014.1, -374.4);
+bezierVertex(1018.8, -360.8, 1020.2, -348.2, 1020.1, -319);
+bezierVertex(1019.9, -276.2, 1016, -263, 998.7, -248);
+bezierVertex(959.7, -214.1, 899.9, -260.6, 879, -341.1);
+bezierVertex(870, -375.8, 859.8, -394.7, 842.2, -409);
+bezierVertex(819.3, -427.7, 762.3, -447, 740.2, -443.5);
+bezierVertex(726.1, -441.3, 705, -423.4, 700.5, -410);
+bezierVertex(693.1, -387.3, 698.1, -373.3, 724.6, -343.2);
+bezierVertex(775, -285.9, 789.6, -262.4, 792.9, -233);
+bezierVertex(795, -214.1, 791.1, -206.8, 774.9, -199.3);
+bezierVertex(758.5, -191.6, 744.9, -189.7, 730.3, -193);
+bezierVertex(713, -196.9, 703.2, -206.4, 701.7, -220.8);
+bezierVertex(694, -295.8, 688.5, -314.9, 669.2, -333.8);
+bezierVertex(649.1, -353.6, 616.2, -361, 589.7, -351.6);
+bezierVertex(569.1, -344.4, 565.5, -334.3, 570.3, -297.1);
+bezierVertex(572, -283.8, 571.5, -276.2, 568.8, -271.9);
+bezierVertex(564.7, -265.5, 547.6, -258.1, 536.7, -258.1);
+bezierVertex(519.2, -258.1, 493.1, -292, 478.8, -333.1);
+bezierVertex(470, -358.3, 461.5, -366.8, 445.5, -366.8);
+bezierVertex(427.3, -366.8, 418.5, -360.5, 412.4, -342.8);
+bezierVertex(404, -318.6, 407.4, -296.1, 426.4, -248.6);
+bezierVertex(445, -202.4, 447.3, -197.6, 477.1, -145.9);
+bezierVertex(493.8, -116.8, 499.2, -104.5, 500.4, -92.8);
+bezierVertex(502.3, -72.7, 496.7, -58.9, 483.9, -52.4);
+bezierVertex(464.5, -42.4, 452.8, -46.8, 437.4, -69.7);
+bezierVertex(422.4, -92, 418, -109.4, 414.5, -158.5);
+bezierVertex(409.6, -228.4, 392.9, -289.5, 364.4, -341.4);
+bezierVertex(350.5, -366.7, 345.3, -371.7, 333, -371.7);
+bezierVertex(307.5, -371.7, 287.9, -349.6, 287.7, -320.3);
+bezierVertex(287.5, -304.5, 288.8, -300.8, 301, -283);
+bezierVertex(308.4, -272.1, 316.7, -257.8, 319.4, -251.1);
+bezierVertex(324.4, -238.9, 325.5, -208.4, 321.5, -195.9);
+bezierVertex(318.1, -185.5, 301, -179.7, 273.5, -179.7);
+bezierVertex(244.2, -179.7, 233.6, -184, 226.6, -198.6);
+bezierVertex(218.3, -216.2, 220.1, -233, 234.3, -268.6);
+bezierVertex(249.3, -306.4, 251.5, -332.3, 241, -351.6);
+bezierVertex(234.6, -363.5, 220.7, -374.4, 211.9, -374.4);
+bezierVertex(193.1, -374.4, 164.1, -320.9, 142.7, -246.6);
+bezierVertex(131.2, -207, 127.3, -188, 113.9, -106.7);
+bezierVertex(104.9, -52.4, 99.8, -37.1, 84.8, -19.7);
+bezierVertex(63.7, 4.7, 15, 16, 0, 0);
+endShape();
+
+};
+
+//buttons
+var buttons = function() {
+    pushMatrix();
+    translate (280,250);
+    scale(0.08);
+    splat();
+    popMatrix();
+    
+    pushMatrix();
+    translate (340,260);
+    rotate (180);
+    scale(0.08);
+    splat();
+    popMatrix();
+    
+    fill(255, 255, 255);
+    textSize(16);
+    text("HOW", 290, 200, 100, 100);
+    text("PLAY", 290, 300, 100, 100);
+};
+
+//INSTRUCTIONS
+{
+   var instructions = function() {
+  if (mouseX >250 && mouseY < 250 && mouseY > 150) {
+      fill (143, 68, 131, 150);
+      rect(150, 250, 300, 300);
+      fill(255, 255, 255);
+      textSize (12);
+   text (" * Key UP and DOWN controls runner", 30, 140, 300, 200); 
+   text (" * Run an entire loop to score", 30, 180, 200, 40); 
+   text (" * CLICK TO START ", 30, 200, 200, 40); 
+   text (" * ", 30, 220, 200, 40); 
+   text (" GAME IS IN WORK!", 30, 300, 200, 40); 
+  }
+}; 
+}
+
+var introAni = function() {
+    
+    noStroke();
+    field();
+    pushMatrix();
+    
+    rotate(-45);
+    translate(-100, 0);
+    textSize(32);
+    fill(random(100, 255), 0, 0, t1/2 - 200);
+    text ("BASERUNNER MADNESS", -80, 270, 400, 200);
+    popMatrix();
+    buttons();
+    instructions();
+
+    if (t1>300 && n1>0.4) {
+        n1 -= 0.01;
+    }
+    pushMatrix();
+    scale(n1);
+    baseball();
+    popMatrix();
+    
+    if (t1<1000) {
+        t1++;
+    }
+    
+    if (scene === 1) {
+mouseClicked = function() {
+    scene =2;
+};
+}
+    
+};
+
+}
+
+// game over
+{
+var gameOver = function() {
+    field();
+    textSize(64);
+    fill(255, 0, 0);
+    pushMatrix();
+    translate (200, 200);
+    scale (sizeGO);
+    rotate (angleGO);
+    text ("YOU", -50, -100, 100, 100);
+    text ("ARE", -50, 0, 100, 100);
+    text ("OUT", -50, 100, 100, 100);
+    popMatrix();
+    
+    if (sizeGO<1) {
+        sizeGO += 0.01;
+        if (angleGO<360) {
+        angleGO += 3.6;
+        }
+    }
+};
+}
+
+//GAME field part
+{
+
+//baseRunner
+{
+var checkEdges = function () {
+    if (x > 260) {
+        x = 260;
+    } else if (x < 60) {
+        x = 60;
+    }
+    
+    if (y > 340) {
+        y = 340;
+    } else if (y < 140) {
+        y = 140;
+    }
+};
+
+var baseRunner = function () {
+    fill(255, 0, 0);
+    ellipse (x, y, 10, 10);
+    text("bases = " + score, 55, 50, 100, 100);
+    text("Life = " + life, 55, 70, 100, 100);
+    text("Mana = " + mana, 55, 90, 100, 100);
+};
+
+keyPressed = function() {
+    if (tt>300) {
+    if (keyCode === UP) {
+        if (59 < x && x < 260 && y === 340) {
+        x+= speed;
+        if (m === 0) {
+        m += 1/4;
+        }
+        if (m === 1) {
+        score ++;
+        if (vel < 2) {
+        vel = score/3;
+        }
+        m = 0;
+        }
+        } else if (60 < x && x < 261 && y === 140) {
+        x-= speed;
+        if (m === 2/4) {
+        m += 1/4;
+        }
+        } else if (139 < y && y < 341 && x === 260) {
+        y-= speed;
+        if (m === 1/4) {
+        m += 1/4;
+        }
+        } else if (139 < y && y < 341 && x === 60) {
+        y+= speed;
+        if (m === 3/4) {
+        m += 1/4;
+        }
+        }
+    } else if (keyCode === DOWN) {
+        if (60 < x && x < 261 && y === 340) {
+        x-= speed;
+        if (m === 1/4) {
+        m -= 1/4;
+        }
+        } else if (59 < x && x < 260 && y === 140) {
+        x+= speed;
+        if (m === 3/4) {
+        m -= 1/4;
+        }
+        } else if (139 < y && y < 341 && x === 260) {
+        y+= speed;
+        if (m === 2/4) {
+        m -= 1/4;
+        }
+        } else if (139 < y && y < 341 && x === 60) {
+        y-= speed;
+        if (m === 4/4) {
+        m -= 1/4;
+        }
+        }
+    }
+    }
+};
+}
+
+// players object
+{
+var Mover = function(x, y) {
+    this.position = new PVector(x, y);
+    this.velocity = new PVector(0, 0);
+    this.acceleration = new PVector(0, 0);
+};
+
+Mover.prototype.update = function(maxS, hunX, hunY) {
+    var follow = new PVector(hunX, hunY);
+    var dir = PVector.sub(follow, this.position);
+    var closeness = (follow.mag() + maxMag - dir.mag())/maxMag;
+    dir.normalize();
+    dir.mult(0.5);
+    this.acceleration = dir;
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(maxS);
+    this.position.add(this.velocity);
+
+};
+
+Mover.prototype.display = function(c, d) {
+    stroke(0);
+    strokeWeight(2);
+    fill(c);
+    ellipse(this.position.x, this.position.y, d, d);
+};
+}
+
+// pre draw function hunters
+{
+var mover = [];
+var magT = [];
+
+for (var i = 0; i < 6; i++) {
+    magT[i] = 0;
+}
+
+    mover[0] = new Mover(50, 350); 
+    mover[1] = new Mover(250, 330); 
+    mover[2] = new Mover(250, 150); 
+    mover[3] = new Mover(70, 150);  
+    mover[4] = new Mover(160, 240);
+    mover[5] = new Mover(350, 240);
+    mover[6] = new Mover(160, 50);
+    mover[7] = new Mover(350, 50);
+
+
+
+var closer = new PVector(0, 0);
+
+}
+
+//ball catchers returning base
+{
+var returnBase = function() {
+    if(mover[3].x !== 70 ||  mover[3].y !== 150) {
+        mover[3].update(0.3, 70, 150);
+        mover[3].display(127, 5);
+    }
+    if(mover[2].x !== 250 ||  mover[3].y !== 150) {
+        mover[2].update(0.3, 250, 150);
+        mover[2].display(127, 5);
+    }
+    if(mover[1].x !== 250 ||  mover[3].y !== 330) {
+        mover[1].update(0.3, 250, 330);
+        mover[1].display(127, 5);
+    }
+        
+};
+}
+
+//trow animation
+{
+var Baseball = function() {
+    this.x = 0;
+    this.y = 0;
+    this.diameter = 10;  
+    this.angle = 0;
+    this.xB = 50;
+    this.yB = 350;
+
+    this.delta = 2;
+};
+
+Baseball.prototype.draw = function() {
+    
+    if (tt === 125) {
+        this.xB = 50;
+        this.yB= 350;
+        this.angle = 0;
+        this.delta = 2;
+        this.diameter = 10;
+        a=1000;
+        b = 0;
+        c = 0;
+    }
+
+    if (this.delta !== 0) {
+    if(this.diameter > 200) {
+        this.delta *= -1;
+    }
+    else if (this.diameter < 10) {
+        this.delta = 0; 
+    }
+    this.diameter += this.delta;
+    translate (this.xB, this.yB);
+    this.xB +=1.5;
+    this.yB -=1.5;
+    rotate (this.angle);
+    this.angle -= random (4, 7);
+    }
+    
+
+    noStroke();
+    fill(255, 255, 255);
+    ellipse(this.x, this.y, this.diameter, this.diameter);
+    
+    for(var i = 0; i < 2; i++) {
+        
+        noFill();
+        strokeWeight(this.diameter/20);
+        for(var j = 0; j < 20; j++) {
+            
+
+            var angle = map(j, 0, 19, 317, 405);
+            
+
+            if(j % 2 === 0) {
+                stroke(255, 0, 0);
+            }
+            else {
+                stroke(255, 255, 255);
+            }
+            
+
+            arc(this.x-this.diameter/1.5, this.y, this.diameter, this.diameter, angle, angle);
+            arc(this.x+this.diameter/1.5, this.y, this.diameter, this.diameter, 180-angle, 180-angle);
+        }  
+    }
+    
+
+    noFill();
+    stroke(0, 0, 0);
+    strokeWeight(this.diameter/20);
+    ellipse(this.x, this.y, this.diameter, this.diameter);    
+};
+
+
+var myBaseball = new Baseball();
+
+    
+
+    mover[8] = new Mover(180, 205);
+    hunX = 160;
+    hunY = 240;
+var trow = function () {
+    if(tt<350) {
+        if (hunX!==160) {
+            hunX = 160;
+            hunY = 240;
+        }
+    if (tt < 100) {
+        mover[8].update(5, hunX, hunY);
+        mover[8].display(150, 10);
+    } else if(tt < 125) {
+        hunX = 50;
+        hunY = 350;
+        mover[8].update(5, hunX, hunY);
+        mover[8].display(150, 10);
+    } else {
+        pushMatrix();
+        myBaseball.draw();
+        popMatrix();
+    }
+    tt++;
+    returnBase();
+    
+    } else if (mov === 1) {
+        hunX = random (250, width);
+        hunY = random (0, 330);
+        mov ++;
+    var far = new PVector (hunX, hunY);
+    
+    for (var i = 0; i < mover.length; i++) {
+        closer = PVector.sub(mover[i].position, far);
+        magT[i] = closer.mag(); 
+        magT[i] = abs(magT[i]);
+        
+        if( magT[i] < a ){
+            a = magT[i];
+            b = i;
+    }
+    }
+    }
+};
+
+}
+
+// ball catching players
+{
+var hunters = function() {
+    
+        for (var i = 0; i < mover.length; i++) {
+        mover[i].display(127, 5); 
+        }
+        
+        if (mov === 2 && magT[b] > 2) {
+        mover[b].update(vel, hunX, hunY);
+        fill(150);
+        ellipse (hunX, hunY, 10, 10);
+        } 
+        if (magT[b] < 2 && mov === 2) {
+            mov ++;
+            mover[8] = new Mover(hunX, hunY);
+        }
+        
+        var far = new PVector (hunX, hunY);
+        closer = PVector.sub(mover[b].position, far);
+        magT[b] = closer.mag(); 
+        magT[b] = abs(magT[b]);
+        
+        
+// AFTER CATCHING BALL      
+        
+if (mov === 3) {
+    mover[8].update(6, hunX, hunY);
+    mover[8].display(150, 10);
+    
+    if (m === 1/4) {
+    hunX = mover[1].position.x;
+    hunY = mover[1].position.y;
+    } else if (m === 2/4) {
+    hunX = mover[2].position.x;
+    hunY = mover[2].position.y;
+    } else if (m === 3/4) {
+    hunX = mover[3].position.x;
+    hunY = mover[3].position.y;
+    } else if (m === 4/4 || m === 0) {
+    hunX = mover[0].position.x;
+    hunY = mover[0].position.y;
+    }
+}
+};
+}   
+
+//reset
+{
+var reset = function() {
+        p++;
+        mana += 500;
+        tt = 0;
+        mov = 1;
+};
+}
+
+//contains
+{
+var contain = function(){
+    if (mov !== 1 && mover[8].position.x - 20 < x && x < mover[8].position.x + 20 && mover[8].position.y - 20 < y && y < mover[8].position.y + 20) {
+        life --;   
+    }
+};
+}
+
+}
+
+
+draw = function() {
+    logo();
+    if (t === 746 && scene ===1) {
+        introAni();
+    } else if (scene === 2 && life > 0) {
+        if (score === p) {
+        field();
+        hunters();
+        trow();
+        contain();
+        checkEdges();
+        baseRunner();
+        } else if (score !== p && life > 0) {
+            reset();
+        } else if (life < 1){
+            gameOver();
+        }
+    }
+};

@@ -1,0 +1,187 @@
+npm start
+(be on sampsite directory)
+
+mongod -dbpath C:\Users\BrunoSR\Desktop\Bruno\meantut\sampsite\data
+
+leave both diferent cmd windows running and open a new one
+
+
+
+
+---------- Installing NodeJS and Express on Windows ----------
+
+1. Go to nodejs.org and download the Windows version of NodeJS
+
+2. Type node -v in the command prompt to make sure it is installed
+
+3. Install Express by typing the following in the terminal npm install -g express
+
+4. Install Express Generator with npm install express-generator -g
+
+5. Install Jade by typing npm install jade
+
+6. You can also install Handlebars if you'd like with install --save express-handlebars
+
+7. Create a site by going to the directory you want to use an type express nameOfYourSite
+
+Open package.json and add the lines after the jade line
+"kerberos": "~0.0.17",
+"mongodb": "~2.0.33",
+
+8. Install Python 2.7.11  http://www.python.org/getit/windows/
+
+9. Install node-gyp npm install -g node-gyp
+
+10. Cd to your site directory cd sampsite and type npm install
+
+	a. If you get any errors type npm install -g npm@latest
+
+11. In your sampsite directory create a directory called data which is used for MongoDB : md data
+
+12. Type npm start in the terminal and go to localhost:3000 to test that Express and NodeJS are working 
+
+---------- Installing MongoDB ----------
+
+1. Install MongoDB for your OS at mongodb.org
+
+2. Create the data directory at c:\data\db by typing md data and then md data\db in your c directory in the command prompt
+
+3. Add the bin directory to your path by opening System Properties -> Advanced Tab -> Environment Variables and then add this line to the paths C:\Program Files\MongoDB\Server\3.0\bin (Don't forget to put a semicolon before the directory)
+
+4. In a new command prompt type mongod -dbpath C:\Users\derekbanas\meantut\sampsite\data
+
+5. In another command prompt type in mongo to open the shell
+
+6. Create a database called sampsite by typing use sampsite
+
+7. Add some sample data in the shell by typing
+db.students.insert([{"student": "Dale Cooper", "street": "123 Main St", "city": "Yakima", "state": "WA"}])
+
+8. In the app.js file add the line 
+var mongo = require('mongodb'); after the bodyParser line
+
+9. Open sampsite/routes/index.js in a text editor like NotePad++ and add the following after router = express.Router() but before module.exports = router;
+/* GET home page. */
+// Defines the root route. router.get receives a path and a function
+// The req object represents the HTTP request and contains
+// the query string, parameters, body, header
+// The res object is the response Express sends when it receives
+// a request
+// render says to use the views/index.jade file for the layout
+// and to set the value for title to 'Express'
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get('/thelist', function(req, res){
+
+  // Get a Mongo client to work with the Mongo server
+  var MongoClient = mongodb.MongoClient;
+
+  // Define where the MongoDB server is
+  var url = 'mongodb://localhost:27017/sampsite';
+
+  // Connect to the server
+  MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the Server', err);
+  } else {
+    // We are connected
+    console.log('Connection established to', url);
+
+    // Get the documents collection
+    var collection = db.collection('students');
+
+    // Find all students
+    collection.find({}).toArray(function (err, result) {
+      if (err) {
+        res.send(err);
+      } else if (result.length) {
+        res.render('studentlist',{
+
+          // Pass the returned database documents to Jade
+          "studentlist" : result
+        });
+      } else {
+        res.send('No documents found');
+      }
+      //Close connection
+      db.close();
+    });
+  }
+  });
+});
+
+10. Create studentlist.jade in the views directory and put this code there
+extends layout
+
+block content
+  h3.
+    Students
+  ul
+    each student, i in studentlist
+      li#student_list_item
+        a(href='#') #{student.student} lives at #{student.street} #{student.city}, #{student.state}
+
+11. Restart the NodeJS server with Ctrl - C and then npm start in the terminal
+
+12. Load localhost:3000/thelist to see that NodeJS, Express, and MongoDB are working together
+
+---------- Installing AngularJS ----------
+
+1. Install Git at http://git-scm.com/
+
+2. Install Bower which is a package manager used to download and maintain 3rd party libraries by running this in the terminal npm install -g bower
+
+3. Bower uses a JSON file to indicate which packages to install. In the sampsite directory create a file named bower.json and insert the following
+{
+	name: MEAN,
+	version: 0.0.7,
+	dependencies: { }
+}
+
+4. Create a folder named .bowerrc in sampsite and insert
+{
+	directory: public/lib
+}
+
+5. Install Angular by putting this line in bower.json
+dependencies: { 
+	angular: ~1.2
+}
+
+6. Go to the sampsite directory in the terminal and type
+bower install to get the Angular package files and put them in public/lib/angular
+
+7. Delete everything in the public folder except for the lib folder Bower just created. Create a file in public named application.js with this
+var mainApplicationModuleName = 'mean';
+
+var mainApplicationModule = angular.module(mainApplicationModuleName, []);
+
+// Bind a function to the document ready event and use bootstrap to start
+// a new AngularJS app using the main module
+angular.element(document)ready(function() {
+	angular.bootstrap(document,
+	[mainApplicationModuleName]);
+});
+
+8. Include AngularJS in your views/layout.jade file 
+doctype html
+html
+  head
+    title= title
+  body(ng-app="")
+    block content
+script(src='/lib/angular/angular.js')
+script(src='/application.js')
+
+9. Make these changes to index.jade
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div(ng-app="")
+    p Name : 
+      input(type="text" ng-model="name")
+  h1 Hello {{name}}

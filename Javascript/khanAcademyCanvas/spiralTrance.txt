@@ -1,0 +1,44 @@
+
+var r = 0;
+var theta = 0;
+var x = r * cos(theta);
+var y = r * sin(theta);
+var z = 0;
+var c = 0;
+fill(255, 255, 255);
+
+
+var spiral = function (z, c){
+    theta = z;
+    r = 0;
+    for (var i = 0; i < 200; i++){
+        pushMatrix();
+        translate(width/2, height/2);
+        
+        x = r * cos(theta);
+        y = r * sin(theta);
+        stroke(255-c, 0+ 2*c, 0+c);
+    
+        ellipse(x, y, 10, 10);
+        popMatrix();
+        
+        theta += 10;
+        r +=02;
+    }
+};
+
+draw = function() {
+
+    pushMatrix();
+    spiral(z);
+    spiral(z+75, 50);
+    spiral(z+150, 100);
+    spiral(z+225, 255);
+
+    x = r * cos(theta);
+    y = r * sin(theta);
+
+    popMatrix();
+    z += 4.4;
+
+};

@@ -1,0 +1,10 @@
+cd		change directory (to go back use .. )
+dir		contents directory
+dir /a		+hidden files
+cls		clear
+mkdir		create a folder
+rmdir /s		rmdir
+
+
+^^nameFile^^	runs the file
+*.png		show all files with the extension requested

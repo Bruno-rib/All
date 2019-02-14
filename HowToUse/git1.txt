@@ -1,0 +1,59 @@
+troubleshooting
+git config --list		name is different from github profile
+
+*****go to Git directory*****
+git add .                           	all added from working to unstage (locally)
+git commit -m "message"			add files from unstage to repository (message for yourself)
+git remote				githubTutorials
+git push --set-upstream upstream master
+
+git checkout -- "name file"       	reverse
+git status 							check status working / unstage
+git add "name file"					add one file working to unstage
+git commit -ma "message"			add files from working to repository (all directly, only use for changes)
+git config --global user.name "name"	add name
+git config --global user.email "email"	add email
+git init							starts to control a file or folder
+git add *.java						keep track of all java files on current directory
+git reset HEAD "file"				remove file from stage area
+git log 							all commits
+git log	--pretty=oneline			easier to read comments
+git log --pretty=format:"%h : %an : %ar : %s"
+git checkout "commit id" -- "file" 	reverse to a previous commit
+git remote add "nickname" "link"	add a nickname to github url (shift + insert = paste)
+git push -u "link" master			add commits online
+git help							help
+.gitignore							create a file named as (github.com/github/gitignore)
+git diff							working vs repository
+git diff --cached					staged vs repository
+git rm "file"						delete file
+git rm -f "file"					delete from staged
+git rm --cached "file"				keep file on system but remove from staged area
+git mv "file origin" "file dest"	move a file with option to rename (first file is deleted, second file is created)
+git commit --amend					undo last commit
+
+ 
+
+
+
+
+
+
+pwd									check directory
+cd ../..							previous x2
+cd "directory"						move forward into
+ls									files in directory
+ls -la								all files (hidden)
+mkdir								make directory
+rmdir								delete folder
+touch "file"						create a new file
+echo "message to add" >> "file"		append or create text to file
+
+
+
+
+
+
+
+
+.

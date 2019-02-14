@@ -1,0 +1,38 @@
+doctype html
+html(ng-app="app2")
+  head
+    title= title
+    style.
+      *{
+        margin: 0,
+        padding: 0
+      }
+      h1{
+        font-size: 60px;
+        color:#a00000;
+      }
+      body{
+        background-color: #f0f0b0
+      }
+
+  body(ng-app="")
+    h1= "The Bruno"
+    p Welcome to my page
+    div(ng-app="")
+      p Name : 
+        input(type="text" ng-model="name")
+    h1 Hello {{name}}
+
+    p Think of a number:
+      p Number : 
+        input(type="text" ng-model="number")
+      p Your number is: {{number}}
+      p(ng-controller='ctrl1')Random number is: {{randomNum}}
+
+
+
+
+  script(src='/lib/angular/angular.js')
+  script(src='/application.js')
+
+    

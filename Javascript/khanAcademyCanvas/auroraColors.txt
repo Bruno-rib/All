@@ -1,0 +1,51 @@
+background(0, 0, 0);
+noFill();
+var redValue = 10;
+var greenValue = 10;
+var blueValue = 10;
+var n = 1;
+
+var redChange = n;
+var greenChange = n*2;
+var blueChange = n*3;
+var angle = 0;
+strokeWeight(0.5);
+
+var draw = function() {
+
+    stroke(redValue, greenValue, blueValue);
+    rectMode (CENTER);
+    
+    pushMatrix();
+    translate(width/2, height/2);
+    rotate(PI + angle);
+    rect (0, 0, mouseX, mouseY);
+    popMatrix();
+    
+
+
+    if (redValue > 255) {
+        redChange = -n;
+    }
+    if (redValue < 0) {
+        redChange = n;
+    }
+    if (greenValue > 255) {
+        greenChange = -n*2;
+    }
+    if (greenValue < 0) {
+        greenChange = n*2;
+    }
+    if (blueValue > 255) {
+        blueChange = -n*3;
+    }
+    if (blueValue < 0) {
+        blueChange = n*3;
+    }
+    
+    redValue = redValue + redChange;
+    greenValue = greenValue + greenChange;
+    blueValue = blueValue + blueChange;
+
+    angle += mouseX / 10;
+};

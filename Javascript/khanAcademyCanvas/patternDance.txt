@@ -1,0 +1,106 @@
+
+noFill();
+var redValue = 175;
+var greenValue = 10;
+var blueValue = 10;
+var n = 0.1;
+
+var redChange = n;
+var greenChange = n*2;
+var blueChange = n*3;
+
+
+
+
+var pos={
+  x:200,
+  y:200
+};
+ 
+var flames = [];
+var x = 1;
+var y = 10;
+var updateFlames = function(f){
+    for (var i=f.length-1;i>=0;i--){
+        f[i].r+=x;
+        if(f[i].r>550){
+            f.splice(i,1);
+        }
+    }
+};
+ 
+var drawFlames = function(f){
+    var t,c;
+    var fromColor = color(0, 0, 255);
+    var toColor = color(redValue, 0, 255);
+    noFill();
+    strokeWeight(y);
+    for (var i=f.length-1;i>=0;i--){
+        c = lerpColor(fromColor,toColor,f[i].r*20/255);
+        stroke(c);
+        t = atan2(f[i].dy,f[i].dx);
+        arc(f[i].x,f[i].y,f[i].r,f[i].r,t-15,t+15);
+    }
+};
+var t = 0;
+var angle = 0;
+var draw = function() {
+    
+        if (t<475) {
+        background(0, 0, 0);
+        x = 2;
+        y = 10;
+    } else if (t<950) {
+        x = 1;
+        y = 5;
+    } else if (t<1425) {
+        background(0, 0, 0);
+        x = 6;
+        y = 20;
+    } else if (t<1900) {
+        x = 2;
+        y = 17;
+    } else {
+        t = 0;
+    }
+
+    updateFlames(flames);
+    drawFlames(flames);
+    flames.push({
+        x:pos.x,
+        y:pos.y,
+        dx:5 * cos(angle),
+        dy:5 * sin(angle),
+        r:0
+    });
+    angle += 137.5;
+    
+
+    
+    t++;
+    
+
+    if (redValue > 255) {
+        redChange = -n;
+    }
+    if (redValue < 0) {
+        redChange = n;
+    }
+    if (greenValue > 255) {
+        greenChange = -n*2;
+    }
+    if (greenValue < 0) {
+        greenChange = n*2;
+    }
+    if (blueValue > 255) {
+        blueChange = -n*3;
+    }
+    if (blueValue < 150) {
+        blueChange = n*3;
+    }
+    
+    redValue = redValue + redChange;
+    greenValue = greenValue + greenChange;
+    blueValue = blueValue + blueChange;
+};
+ 

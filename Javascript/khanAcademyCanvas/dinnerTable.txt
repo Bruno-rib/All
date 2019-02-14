@@ -1,0 +1,104 @@
+var colorC = 1;
+
+// wooden table
+for (var j = -1; j<401; j++){
+    stroke(156-j/4, 145-j/4, 64-j/4);
+    line (0,j,400,j);
+}
+    
+
+// plate
+
+ellipse(200, 200, 350, 350); 
+ellipse(200, 200, 300, 300); 
+
+
+
+// rice
+fill(217, 215, 219);
+ellipse(113,100,10,20);
+ellipse(115,110,20,10);
+ellipse(113,120,10,20);
+ellipse(128,124,20,10);
+ellipse(91,134,10,20);
+ellipse(78,178,20,10);
+ellipse(78,141,10,20);
+ellipse(97,172,20,10);
+ellipse(80,162,10,20);
+ellipse(100,160,20,10);
+
+
+var cloudPosX = 100;
+var cloudPosY = 100;
+var cloud = function(cloudPosX, cloudPosY){
+
+var limit = 0;
+var cloudxup = cloudPosX;
+var cloudyup= cloudPosY;
+var cloudx =cloudPosX;
+var cloudy =cloudPosY;
+    limit = cloudxup+50;
+    
+while (cloudxup<limit){
+    ellipse (cloudxup, cloudyup, 50, 10);
+    ellipse (cloudx, cloudy, 50, 10);
+    cloudxup += 10;
+    cloudx += 10;
+if (cloudxup<limit-20){
+    cloudyup += 4;
+    cloudy -= 4;
+    }else {
+    cloudyup -=4;
+    cloudy +=4;
+    }
+}};
+
+
+//ketchup
+stroke(207, 41, 50);
+fill(189, 79, 83);
+cloud(200,100);
+
+//avocado
+stroke (3, 3, 3);
+fill(17, 107, 34);
+bezier (220,145,380,35,380,265,220,155);
+
+noStroke();
+fill(167, 191, 111);
+bezier (225,145,375,45,375,255,225,155);
+
+
+fill(150, 106, 48);
+ellipse (292,150,45,35);
+
+
+
+// taco lettuce
+fill(59, 212, 67);
+quad(79,289,98,244,220,217,278,286);
+triangle(138,211,84,279,278,275);
+
+// taco cheese
+fill(255, 157, 0);
+triangle(176,192,84,279,278,275);
+
+// taco shell
+fill(251, 255, 0);
+arc(177, 292, 174, 148, 180, 360);
+
+// taco shell spots
+noStroke();
+fill(145, 142, 49);
+ellipse(192,269,5,5);
+ellipse(131,255,5,5);
+ellipse(147,269,5,5);
+ellipse(203,233,5,5);
+ellipse(245,285,5,5);
+ellipse(211,252,5,5);
+
+//taco stick
+fill(130, 83, 44);
+ellipse(170,210,5,80);
+
+

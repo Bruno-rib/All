@@ -1,0 +1,11 @@
+putty.exe  		on c: putty
+pm2 start index.js	start site
+pm2 stop index.js	stop site			
+
+
+
+**don't move folder
+theBruno		username
+second 3096		pw
+winscp			login
+sudo setcap cap_net_bind_service=+ep `readlink -f \`which node\``
